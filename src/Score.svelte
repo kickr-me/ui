@@ -98,12 +98,3 @@
   <span class="score-display__divider">:</span>
   <div class="score-display__score">{score.white}</div>
 </div>
-
-<!-- {#each photos as photo}
-  <figure>
-    <img src={photo.thumbnailUrl} alt={photo.title} />
-    <figcaption>{photo.title}</figcaption>
-  </figure>
-{:else}
-  <p>loading...</p>
-{/each} -->
