@@ -14,7 +14,8 @@
 
 <style>
   .score__value {
-    font-size: 18rem;
+    font-size: 15rem;
+    line-height: 1;
   }
 </style>
 
