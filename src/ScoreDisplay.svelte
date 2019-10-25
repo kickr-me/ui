@@ -1,6 +1,46 @@
 <script>
+  import { onMount } from "svelte";
+
   import { score_red, score_white } from "./stores.js";
   import Score from "./Score.svelte";
+  import { connect } from "./socket.js";
+
+  onMount(async () => {
+    let ws = connect();
+
+    ws.onmessage = e => {
+      const data = JSON.parse(e.data);
+      let channel;
+      let type;
+
+      if (data.identifier) {
+        channel = JSON.parse(data.identifier).channel;
+      }
+
+      if (data.type) {
+        type = data.type;
+      }
+
+      if (channel) {
+        switch (channel) {
+          case "GoalNotificationsChannel":
+            if (type === "confirm_subscription") {
+              console.log("Successfully subscribed to channel:", channel);
+            }
+            if (data.message) {
+              switch (data.message.team) {
+                case "red":
+                  $score_red += 1;
+                  break;
+                case "white":
+                  $score_white += 1;
+                  break;
+              }
+            }
+        }
+      }
+    };
+  });
 
   function resetScore() {
     score_red.set(0);
