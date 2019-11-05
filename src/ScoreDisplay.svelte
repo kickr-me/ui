@@ -87,13 +87,13 @@
 <div class="score">
   <div class="score__row">
     <div class="score__col">
-      <Score bind:score={$score_red} />
+      <Score bind:score={$score_white} />
     </div>
     <div class="score__col">
       <span class="score__divider">:</span>
     </div>
     <div class="score__col">
-      <Score bind:score={$score_white} />
+      <Score bind:score={$score_red} />
     </div>
   </div>
   <div class="score__row">
