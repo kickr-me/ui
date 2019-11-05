@@ -1,15 +1,5 @@
 <script>
   export let score;
-
-  function increase() {
-    score += 1;
-  }
-
-  function decrease() {
-    if (score > 0) {
-      score -= 1;
-    }
-  }
 </script>
 
 <style>
@@ -19,6 +9,6 @@
   }
 </style>
 
-<button class="button" on:click={increase}>+</button>
-<span class="score__value">{score}</span>
-<button class="button" on:click={decrease}>-</button>
+<button class="button" on:click={score.increment}>+</button>
+<span class="score__value">{$score}</span>
+<button class="button" on:click={score.decrement}>-</button>
