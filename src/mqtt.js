@@ -41,6 +41,7 @@ function handleMessages(message) {
   switch (channel) {
     case CHANNELS.GOALS:
       handleGoals(message.payloadString);
+      break;
   }
 }
 
