@@ -1,7 +1,7 @@
 <script>
   import ScoreDisplay from "./ScoreDisplay.svelte";
   import { onMount } from "svelte";
-  import { connect } from "./socket.js";
+  import { connect } from "./mqtt.js";
 
   onMount(async () => {
     connect();
