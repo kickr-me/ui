@@ -4,14 +4,13 @@
   import Score from "./Score.svelte";
 
   function resetScore() {
-    score_red.reset();
-    score_white.reset();
+    const channel = "score/reset";
+    send(channel, "reset");
   }
 
   function score(e, team) {
     const channel = "score/";
-
-    send(team, channel + e.detail);
+    send(channel + e.detail, team);
   }
 </script>
 
@@ -64,6 +63,6 @@
     </div>
   </div>
   <div class="score__row">
-    <button class="button score__reset" on:click={resetScore}>Reset</button>
+    <button class="button score__reset" on:click={resetScore}>New Game</button>
   </div>
 </div>

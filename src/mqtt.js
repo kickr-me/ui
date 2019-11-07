@@ -4,7 +4,8 @@ import { score_red, score_white } from "./stores.js";
 const HOST = "172.30.1.32";
 const PORT = 9001;
 const CHANNELS = {
-  GOALS: "goals",
+  SCORE_RED: "score/red",
+  SCORE_WHITE: "score/white",
   GAME: "game"
 };
 const RECONNECTION_TIMEOUT = 3000;
@@ -22,16 +23,15 @@ export function connect() {
   });
 }
 
-export function send(message, destination) {
+export function send(destination, message) {
   message = new Paho.Message(message);
   message.destinationName = destination;
   client.send(message);
 }
 
 function subscribeToAllChannels() {
-  console.log("Subscribing to channel:", CHANNELS.GOALS);
-
   for (const [_, channel] of Object.entries(CHANNELS)) {
+    console.log("Subscribing to channel:", channel);
     client.subscribe(channel, {
       onSuccess: () => {
         console.log("Successfully subscribed to channel:", channel);
@@ -49,11 +49,23 @@ function onConnectionLost(responseObject) {
 
 function handleMessages(message) {
   const channel = message.destinationName;
+  let score;
+  let team;
 
   switch (channel) {
-    case CHANNELS.GOALS:
-      console.log("[goals] Message:", message.payloadString);
-      handleGoals(message.payloadString);
+    case CHANNELS.SCORE_RED:
+      score = parseInt(message.payloadString);
+      team = "red";
+
+      console.log("[score/red] Message:", score);
+      updateScore(team, score);
+      break;
+    case CHANNELS.SCORE_WHITE:
+      score = parseInt(message.payloadString);
+      team = "white";
+
+      console.log("[score/white] Message:", score);
+      updateScore(team, score);
       break;
     case CHANNELS.GAME:
       console.log("[game] Message:", message.payloadString);
@@ -68,15 +80,13 @@ function reconnect() {
   }, RECONNECTION_TIMEOUT);
 }
 
-function handleGoals(message) {
-  const TEAM = message;
-
-  switch (TEAM) {
+function updateScore(team, score) {
+  switch (team) {
     case "red":
-      score_red.increment();
+      score_red.set(score);
       break;
     case "white":
-      score_white.increment();
+      score_white.set(score);
       break;
   }
 }
