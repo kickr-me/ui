@@ -1,10 +1,17 @@
 <script>
   import { score_red, score_white } from "./stores.js";
+  import { send } from "./mqtt.js";
   import Score from "./Score.svelte";
 
   function resetScore() {
     score_red.reset();
     score_white.reset();
+  }
+
+  function score(e, team) {
+    const channel = "score/";
+
+    send(team, channel + e.detail);
   }
 </script>
 
@@ -47,13 +54,13 @@
 <div class="score">
   <div class="score__row">
     <div class="score__col">
-      <Score score={score_white} />
+      <Score score={score_white} on:scoreChange={e => score(e, 'white')} />
     </div>
     <div class="score__col">
       <span class="score__divider">:</span>
     </div>
     <div class="score__col">
-      <Score score={score_red} />
+      <Score score={score_red} on:scoreChange={e => score(e, 'red')} />
     </div>
   </div>
   <div class="score__row">

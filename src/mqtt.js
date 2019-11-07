@@ -8,22 +8,27 @@ const CHANNELS = {
   GAME: "game"
 };
 const RECONNECTION_TIMEOUT = 3000;
+const client = new Paho.Client(HOST, PORT, "clientId");
 
 export function connect() {
-  let client = new Paho.Client(HOST, PORT, "clientId");
-
   client.onConnectionLost = onConnectionLost;
   client.onMessageArrived = handleMessages;
 
   client.connect({
     onSuccess: () => {
       console.log("Connection established");
-      subscribeToAllChannels(client);
+      subscribeToAllChannels();
     }
   });
 }
 
-function subscribeToAllChannels(client) {
+export function send(message, destination) {
+  message = new Paho.Message(message);
+  message.destinationName = destination;
+  client.send(message);
+}
+
+function subscribeToAllChannels() {
   console.log("Subscribing to channel:", CHANNELS.GOALS);
 
   for (const [_, channel] of Object.entries(CHANNELS)) {
