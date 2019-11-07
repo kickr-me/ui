@@ -1,5 +1,12 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
   export let score;
+  const dispatch = createEventDispatcher();
+
+  const increaseEvent = {
+    team: ""
+  };
 </script>
 
 <style>
@@ -9,6 +16,10 @@
   }
 </style>
 
-<button class="button" on:click={score.increment}>+</button>
+<button class="button" on:click={() => dispatch('scoreChange', 'increase')}>
+  +
+</button>
 <span class="score__value">{$score}</span>
-<button class="button" on:click={score.decrement}>-</button>
+<button class="button" on:click={() => dispatch('scoreChange', 'decrease')}>
+  -
+</button>
