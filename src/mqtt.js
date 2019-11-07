@@ -4,7 +4,8 @@ import { score_red, score_white } from "./stores.js";
 const HOST = "172.30.1.32";
 const PORT = 9001;
 const CHANNELS = {
-  GOALS: "goals"
+  GOALS: "goals",
+  GAME: "game"
 };
 const RECONNECTION_TIMEOUT = 3000;
 
@@ -17,14 +18,21 @@ export function connect() {
   client.connect({
     onSuccess: () => {
       console.log("Connection established");
-      console.log("Subscribing to channel:", CHANNELS.GOALS);
-      client.subscribe(CHANNELS.GOALS, {
-        onSuccess: () => {
-          console.log("Successfully subscribed to channel:", CHANNELS.GOALS);
-        }
-      });
+      subscribeToAllChannels(client);
     }
   });
+}
+
+function subscribeToAllChannels(client) {
+  console.log("Subscribing to channel:", CHANNELS.GOALS);
+
+  for (const [_, channel] of Object.entries(CHANNELS)) {
+    client.subscribe(channel, {
+      onSuccess: () => {
+        console.log("Successfully subscribed to channel:", channel);
+      }
+    });
+  }
 }
 
 function onConnectionLost(responseObject) {
@@ -35,12 +43,15 @@ function onConnectionLost(responseObject) {
 }
 
 function handleMessages(message) {
-  console.log("Message:" + message.destinationName);
   const channel = message.destinationName;
 
   switch (channel) {
     case CHANNELS.GOALS:
+      console.log("[goals] Message:", message.payloadString);
       handleGoals(message.payloadString);
+      break;
+    case CHANNELS.GAME:
+      console.log("[game] Message:", message.payloadString);
       break;
   }
 }
