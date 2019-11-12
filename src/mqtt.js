@@ -9,7 +9,14 @@ const CHANNELS = {
   GAME: "game"
 };
 const RECONNECTION_TIMEOUT = 3000;
-const client = new Paho.Client(HOST, PORT, "clientId");
+const client = new Paho.Client(
+  HOST,
+  PORT,
+  "hkick_frontend_" +
+    Math.random()
+      .toString(36)
+      .substring(2)
+);
 
 export function connect() {
   client.onConnectionLost = onConnectionLost;
