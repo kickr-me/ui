@@ -10,11 +10,6 @@
 </script>
 
 <div class="flex flex-1 px-16 relative z-10 items-center justify-around">
-  <div class="score__col">
-    <Score score={score_white} on:scoreChange={e => score(e, 'white')} />
-  </div>
-
-  <div class="score__col">
-    <Score score={score_red} on:scoreChange={e => score(e, 'red')} />
-  </div>
+  <Score score={score_white} on:scoreChange={e => score(e, 'white')} />
+  <Score score={score_red} on:scoreChange={e => score(e, 'red')} />
 </div>
