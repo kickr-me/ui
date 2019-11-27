@@ -1,6 +1,6 @@
 <script>
-  import { score_red, score_white } from "./stores.js";
-  import { send } from "./mqtt.js";
+  import { score_red, score_white } from "../stores.js";
+  import { send } from "../mqtt.js";
   import Score from "./Score.svelte";
 
   function resetScore() {
