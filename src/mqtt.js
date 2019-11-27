@@ -1,7 +1,7 @@
 import Paho from "paho-mqtt";
 import { score_red, score_white } from "./stores.js";
 
-const HOST = "172.30.1.32";
+const HOST = "127.0.0.1";
 const PORT = 9001;
 const CHANNELS = {
   SCORE_RED: "score/red",

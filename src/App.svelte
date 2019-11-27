@@ -1,6 +1,5 @@
 <script>
-  import ScoreDisplay from "./components/ScoreDisplay.svelte";
-  import VolumeSlider from "./components/VolumeSlider.svelte";
+  import Match from "./components/Match.svelte";
   import { onMount } from "svelte";
   import { connect } from "./mqtt.js";
 
@@ -9,5 +8,6 @@
   });
 </script>
 
-<ScoreDisplay />
-<VolumeSlider />
+<div class="flex flex-col h-full justify-between">
+  <Match />
+</div>

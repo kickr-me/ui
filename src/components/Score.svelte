@@ -10,16 +10,11 @@
 </script>
 
 <style>
-  .score__value {
-    font-size: 15rem;
-    line-height: 1;
-  }
+
 </style>
 
-<button class="button" on:click={() => dispatch('scoreChange', 'increase')}>
-  +
-</button>
-<span class="score__value">{$score}</span>
-<button class="button" on:click={() => dispatch('scoreChange', 'decrease')}>
-  -
-</button>
+<span
+  class="font-semibold text-7xl text-gray-700"
+  on:click={() => dispatch('scoreChange', 'increase')}>
+  {$score}
+</span>
