@@ -1,5 +1,5 @@
 import Paho from "paho-mqtt";
-import { score_red, score_white } from "./stores.js";
+import { just_scored, score_red, score_white } from "./stores.js";
 
 const HOST = "127.0.0.1";
 const PORT = 9001;
@@ -88,6 +88,8 @@ function reconnect() {
 }
 
 function updateScore(team, score) {
+  just_scored.set(true);
+
   switch (team) {
     case "red":
       score_red.set(score);
