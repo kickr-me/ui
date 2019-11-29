@@ -1,65 +1,72 @@
 <script>
-  import { fade } from "svelte/transition";
+  import { send } from "../mqtt.js";
+  import { scale, draw } from "svelte/transition";
+  import { quintOut, linear } from "svelte/easing";
   import { createEventDispatcher, onMount } from "svelte";
 
   const dispatch = createEventDispatcher();
-  let time_in_seconds = 10;
-  let timer = time_in_seconds * 1000;
+  const duration = 10000;
+  let timer;
+  let runAnimation = false;
+
+  export function resetTimer() {
+    clearTimeout(timer);
+    runAnimation = false;
+    setTimeout(() => {
+      startTimer();
+    }, 100);
+  }
+
+  function startTimer() {
+    runAnimation = true;
+
+    timer = setTimeout(() => {
+      dispatch("timerEnd", "");
+    }, duration);
+  }
+
+  function undoLastScore(e) {
+    const channel = "score/undo";
+    send(channel, "1");
+  }
 
   onMount(() => {
-    const interval = setInterval(() => {
-      timer -= 1000;
-
-      if (timer === 0) {
-        dispatch("timerEnd", "");
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
+    startTimer();
   });
 </script>
 
 <style>
-  .undo {
+  .undo-group {
     bottom: 2rem;
   }
 
-  .svg-line {
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    stroke-dasharray: 200;
-    stroke-dashoffset: 0;
-    animation: dash 10s linear forwards;
-  }
-
-  @keyframes dash {
-    to {
-      stroke-dashoffset: 200;
-    }
+  .undo-button {
+    padding: 15px 46px;
   }
 </style>
 
-<button
-  class="undo absolute bg-gray-300 hover:bg-gray-400 font-semibold shadow-lg
-  text-lg text-gray-700 py-2 px-5 rounded-full"
-  transition:fade={{ duration: 150 }}>
-  Undo
+<div class="undo-group absolute">
+  <button
+    on:click={undoLastScore}
+    class="undo-button bg-gray-300 hover:bg-gray-400 font-semibold shadow-lg
+    text-lg text-gray-700 rounded-full"
+    transition:scale={{ duration: 500, opacity: 0, start: 0.8, easing: quintOut }}>
+    Undo
+  </button>
   <svg
-    xmlns="http://www.w3.org/2000/svg"
+    class="absolute top-0 left-0 pointer-events-none"
+    width="139"
+    height="58"
     fill="none"
-    width="110%"
-    height="110%"
-    class="svg-line"
-    viewBox="-5 -5 84 40">
-    <rect
-      width="90%"
-      height="90%"
-      x="-3"
-      y="-3"
-      rx="20"
-      stroke="#2D3748"
-      fill="none"
-      stroke-width="3" />
+    xmlns="http://www.w3.org/2000/svg">
+    {#if !runAnimation}
+      <path
+        out:draw={{ duration: duration - 50, easing: linear }}
+        d="M29 1.5C13.812 1.5 1.5 13.812 1.5 29S13.812 56.5 29 56.5h81c15.188 0
+        27.5-12.312 27.5-27.5S125.188 1.5 110 1.5H29z"
+        stroke="#2D3748"
+        stroke-width="3"
+        stroke-miterlimit="16" />
+    {/if}
   </svg>
-</button>
+</div>

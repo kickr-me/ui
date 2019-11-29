@@ -93,9 +93,15 @@ function updateScore(team, score) {
   switch (team) {
     case "red":
       score_red.set(score);
+      if (score > score_red) {
+        just_scored.set(true);
+      }
       break;
     case "white":
       score_white.set(score);
+      if (score > score_white) {
+        just_scored.set(true);
+      }
       break;
   }
 }

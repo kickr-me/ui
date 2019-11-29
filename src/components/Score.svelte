@@ -7,6 +7,6 @@
 
 <span
   class="font-semibold text-7xl text-gray-700"
-  on:click={() => dispatch('scoreChange', 'increase')}>
+  on:click={() => dispatch('scoreAdapt', 'increase')}>
   {$score}
 </span>

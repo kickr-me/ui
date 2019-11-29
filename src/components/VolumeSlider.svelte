@@ -4,7 +4,6 @@
 
   function handleChange(e) {
     const channel = "sound/volume";
-    console.log(value);
     send(channel, value.toString());
   }
 </script>
