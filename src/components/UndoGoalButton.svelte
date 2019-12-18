@@ -2,7 +2,7 @@
   import { send } from "../mqtt.js";
   import { scale, draw } from "svelte/transition";
   import { quintOut, linear } from "svelte/easing";
-  import { createEventDispatcher, onMount } from "svelte";
+  import { createEventDispatcher, onMount, onDestroy } from "svelte";
 
   const dispatch = createEventDispatcher();
   const duration = 10000;
@@ -10,11 +10,15 @@
   let runAnimation = false;
 
   export function resetTimer() {
-    clearTimeout(timer);
-    runAnimation = false;
+    clearTimer();
     setTimeout(() => {
       startTimer();
     }, 100);
+  }
+
+  export function clearTimer() {
+    clearTimeout(timer);
+    runAnimation = false;
   }
 
   function startTimer() {
@@ -33,6 +37,10 @@
   onMount(() => {
     startTimer();
   });
+
+  onDestroy(() => {
+    clearTimer();
+  });
 </script>
 
 <style>
@@ -50,7 +58,7 @@
     on:click={undoLastScore}
     class="undo-button bg-gray-300 hover:bg-gray-400 font-semibold shadow-lg
     text-lg text-gray-700 rounded-full"
-    transition:scale={{ duration: 500, opacity: 0, start: 0.8, easing: quintOut }}>
+    transition:scale|local={{ duration: 500, opacity: 0, start: 0.8, easing: quintOut }}>
     Undo
   </button>
   <svg
@@ -61,7 +69,7 @@
     xmlns="http://www.w3.org/2000/svg">
     {#if !runAnimation}
       <path
-        out:draw={{ duration: duration - 50, easing: linear }}
+        out:draw|local={{ duration: duration - 50, easing: linear }}
         d="M29 1.5C13.812 1.5 1.5 13.812 1.5 29S13.812 56.5 29 56.5h81c15.188 0
         27.5-12.312 27.5-27.5S125.188 1.5 110 1.5H29z"
         stroke="#2D3748"

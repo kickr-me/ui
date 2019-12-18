@@ -1,11 +1,12 @@
 import Paho from "paho-mqtt";
 import { game_running, just_scored, score_red, score_white } from "./stores.js";
 
-const HOST = "127.0.0.1";
+const HOST = "172.30.1.32";
 const PORT = 9001;
 const CHANNELS = {
   SCORE_RED: "score/red",
   SCORE_WHITE: "score/white",
+  SCORE_INCREASE: "score/increase",
   GAME_END: "game/end"
 };
 const RECONNECTION_TIMEOUT = 3000;
@@ -74,8 +75,13 @@ function handleMessages(message) {
       console.log("[score/white] Message:", score);
       updateScore(team, score);
       break;
+    case CHANNELS.SCORE_INCREASE:
+      console.log("[score/increase] Message:", message.payloadString);
+      just_scored.set(true);
+      break;
     case CHANNELS.GAME_END:
       console.log("[game/end] Message:", message.payloadString);
+      just_scored.set(false);
       game_running.set(false);
       break;
   }
@@ -89,20 +95,12 @@ function reconnect() {
 }
 
 function updateScore(team, score) {
-  just_scored.set(true);
-
   switch (team) {
     case "red":
       score_red.set(score);
-      if (score > score_red) {
-        just_scored.set(true);
-      }
       break;
     case "white":
       score_white.set(score);
-      if (score > score_white) {
-        just_scored.set(true);
-      }
       break;
   }
 }
