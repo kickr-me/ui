@@ -2,7 +2,7 @@
   import ScoreDisplay from "./ScoreDisplay.svelte";
   import RoundDisplay from "./RoundDisplay.svelte";
   import VolumeSlider from "./VolumeSlider.svelte";
-  import MatchTimer from "./MatchTimer.svelte";
+  import Timer from "./Timer.svelte";
   import GoalHistory from "./GoalHistory.svelte";
 </script>
 
@@ -25,7 +25,7 @@
 
 <div class="relative bg-gray-100 flex flex-1 flex-col">
   <div class="fixed flex justify-center items-center w-full z-10 h-12">
-    <MatchTimer />
+    <Timer />
   </div>
   <ScoreDisplay />
   <RoundDisplay />

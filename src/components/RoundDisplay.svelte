@@ -1,5 +1,16 @@
 <script>
   import { round } from "../stores.js";
+  import Timer from "./Timer.svelte";
+
+  let roundTimer;
+
+  function resetRoundTimer() {
+    if (roundTimer) {
+      roundTimer.resetTimer();
+    }
+  }
+
+  $: $round, resetRoundTimer();
 </script>
 
 <style>
@@ -13,6 +24,8 @@
 </style>
 
 <div class="round-display absolute text-gray-600 text-lg text-center">
-  <span>Round {$round}</span>
-  <span>0:00</span>
+  <span on:change>Round {$round}</span>
+  <span>
+    <Timer bind:this={roundTimer} />
+  </span>
 </div>

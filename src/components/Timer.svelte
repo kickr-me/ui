@@ -17,6 +17,13 @@
     }, interval);
   }
 
+  export function resetTimer() {
+    stopwatch.seconds = 0;
+    stopwatch.minutes = 0;
+    clearInterval(timer);
+    startTimer();
+  }
+
   onMount(() => {
     startTimer();
   });
