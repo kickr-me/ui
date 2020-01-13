@@ -1,6 +1,6 @@
 <script>
   import { send } from "../mqtt.js";
-  import { scale, draw } from "svelte/transition";
+  import { scale, draw, fade } from "svelte/transition";
   import { quintOut, linear } from "svelte/easing";
   import { createEventDispatcher, onMount, onDestroy } from "svelte";
 
@@ -32,6 +32,7 @@
   function undoLastScore(e) {
     const channel = "score/undo";
     send(channel, "1");
+    dispatch("timerEnd", "");
   }
 
   onMount(() => {
@@ -53,12 +54,13 @@
   }
 </style>
 
-<div class="undo-group absolute">
+<div
+  class="undo-group absolute"
+  transition:scale|local={{ duration: 500, opacity: 0, start: 0.8, easing: quintOut }}>
   <button
     on:click={undoLastScore}
     class="undo-button bg-gray-300 hover:bg-gray-400 font-semibold shadow-lg
-    text-lg text-gray-700 rounded-full"
-    transition:scale|local={{ duration: 500, opacity: 0, start: 0.8, easing: quintOut }}>
+    text-lg text-gray-700 rounded-full">
     Undo
   </button>
   <svg
