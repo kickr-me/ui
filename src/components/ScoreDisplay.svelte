@@ -19,7 +19,7 @@
   }
 </script>
 
-<div class="flex flex-1 px-16 relative z-10 items-center justify-around">
+<div class="flex flex-1 relative z-10 items-center justify-around">
   <Score score={score_white} on:scoreAdapt={e => score(e, 'white')} />
   <Score score={score_red} on:scoreAdapt={e => score(e, 'red')} />
 

@@ -4,7 +4,21 @@
   import MatchTimer from "./MatchTimer.svelte";
 </script>
 
-<div class="bg-gray-100 flex flex-1 flex-col">
+<style>
+  .team-red {
+    top: 50%;
+    left: -15px;
+    transform: translateY(-50%) rotate(90deg);
+  }
+
+  .team-white {
+    top: 50%;
+    right: -60px;
+    transform: translateY(-50%) rotate(-90deg);
+  }
+</style>
+
+<div class="relative bg-gray-100 flex flex-1 flex-col">
   <div class="fixed flex justify-center items-center w-full z-10 h-12">
     <MatchTimer />
   </div>
@@ -15,6 +29,12 @@
     src="./img/field.svg"
     class="absolute top-0 left-0 z-0"
     alt="Kicker field" />
+  <span class="team-red absolute text-6xl uppercase font-black text-red-400">
+    Red
+  </span>
+  <span class="team-white absolute text-6xl uppercase font-black text-gray-300">
+    White
+  </span>
 </div>
 
-<div class="h-20 bg-gray-100 shadow-2xl" />
+<div class="h-20 bg-gray-100 shadow-2xl z-50" />
