@@ -1,8 +1,11 @@
 <script>
+  import { send } from "../mqtt.js";
   import { game_running } from "../stores.js";
 
   function startGame() {
+    const channel = "game/start";
     game_running.set(true);
+    send(channel, "");
   }
 </script>
 

@@ -2,21 +2,22 @@
   import ScoreDisplay from "./ScoreDisplay.svelte";
   import VolumeSlider from "./VolumeSlider.svelte";
   import MatchTimer from "./MatchTimer.svelte";
+  import GoalHistory from "./GoalHistory.svelte";
 </script>
 
 <style>
   .team {
-    @apply absolute text-6xl uppercase font-black;
+    @apply absolute text-6xl uppercase font-black leading-none;
   }
   .team-red {
     top: 50%;
-    right: -10px;
+    right: -25px;
     transform: translateY(-50%) rotate(-90deg);
   }
 
   .team-white {
     top: 50%;
-    left: -55px;
+    left: -70px;
     transform: translateY(-50%) rotate(90deg);
   }
 </style>
@@ -36,4 +37,4 @@
   <span class="team team-red text-red-400">Red</span>
 </div>
 
-<div class="h-20 bg-gray-100 shadow-2xl z-50" />
+<GoalHistory />

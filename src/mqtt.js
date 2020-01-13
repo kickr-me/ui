@@ -1,5 +1,11 @@
 import Paho from "paho-mqtt";
-import { game_running, just_scored, score_red, score_white } from "./stores.js";
+import {
+  game_running,
+  just_scored,
+  score_red,
+  score_white,
+  goals
+} from "./stores.js";
 
 const HOST = "172.30.1.32";
 const PORT = 9001;
@@ -7,6 +13,7 @@ const CHANNELS = {
   SCORE_RED: "score/red",
   SCORE_WHITE: "score/white",
   SCORE_INCREASE: "score/increase",
+  ROUND_GOALS: "round/goals",
   GAME_END: "game/end"
 };
 const RECONNECTION_TIMEOUT = 3000;
@@ -78,6 +85,10 @@ function handleMessages(message) {
     case CHANNELS.SCORE_INCREASE:
       console.log("[score/increase] Message:", message.payloadString);
       just_scored.set(true);
+      break;
+    case CHANNELS.ROUND_GOALS:
+      console.log("[round/goals] Message:", message.payloadString);
+      goals.set(JSON.parse(message.payloadString));
       break;
     case CHANNELS.GAME_END:
       console.log("[game/end] Message:", message.payloadString);
