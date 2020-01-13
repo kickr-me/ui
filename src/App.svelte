@@ -1,4 +1,5 @@
 <script>
+  import Tailwindcss from "./Tailwindcss.svelte";
   import Match from "./components/Match.svelte";
   import NewGame from "./components/NewGame.svelte";
   import { onMount } from "svelte";
