@@ -8,7 +8,6 @@
 
   afterUpdate(() => {
     lineWidth = $goals.length * 50;
-    console.log(lineWidth);
     timeline.style.width = `${lineWidth}px`;
   });
 </script>
