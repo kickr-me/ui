@@ -1,5 +1,6 @@
 <script>
   import ScoreDisplay from "./ScoreDisplay.svelte";
+  import RoundDisplay from "./RoundDisplay.svelte";
   import VolumeSlider from "./VolumeSlider.svelte";
   import MatchTimer from "./MatchTimer.svelte";
   import GoalHistory from "./GoalHistory.svelte";
@@ -27,6 +28,7 @@
     <MatchTimer />
   </div>
   <ScoreDisplay />
+  <RoundDisplay />
   <!-- <VolumeSlider /> -->
 
   <img

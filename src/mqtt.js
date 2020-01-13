@@ -4,7 +4,8 @@ import {
   just_scored,
   score_red,
   score_white,
-  goals
+  goals,
+  round
 } from "./stores.js";
 
 const HOST = "172.30.1.32";
@@ -13,6 +14,7 @@ const CHANNELS = {
   SCORE_RED: "score/red",
   SCORE_WHITE: "score/white",
   SCORE_INCREASE: "score/increase",
+  ROUND_CURRENT: "round/current",
   ROUND_GOALS: "round/goals",
   GAME_END: "game/end"
 };
@@ -85,6 +87,10 @@ function handleMessages(message) {
     case CHANNELS.SCORE_INCREASE:
       console.log("[score/increase] Message:", message.payloadString);
       just_scored.set(true);
+      break;
+    case CHANNELS.ROUND_CURRENT:
+      console.log("[round/current] Message:", message.payloadString);
+      round.set(message.payloadString);
       break;
     case CHANNELS.ROUND_GOALS:
       console.log("[round/goals] Message:", message.payloadString);
