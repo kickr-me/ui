@@ -37,6 +37,6 @@
   });
 </script>
 
-<span class="px-2 text-gray-600 bg-gray-100 text-base font-medium">
+<span class="py-1 px-2 text-gray-600 bg-gray-100 text-base font-medium">
   {stopwatch}
 </span>

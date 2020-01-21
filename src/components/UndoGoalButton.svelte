@@ -78,10 +78,6 @@
   }
 
   .text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     z-index: 2;
   }
 
@@ -105,7 +101,7 @@
     on:click={undoLastScore}
     class="button relative bg-gray-300 hover:bg-gray-400 font-semibold shadow-lg
     text-lg text-gray-700 rounded-full">
-    <span class="text">Undo</span>
+    <span class="text center-center">Undo</span>
     <span bind:this={ghostEl} class="ghost" />
   </button>
 </div>

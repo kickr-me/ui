@@ -3,6 +3,7 @@
   import RoundDisplay from "./RoundDisplay.svelte";
   import VolumeSlider from "./VolumeSlider.svelte";
   import Timer from "./Timer.svelte";
+  import BackButton from "./BackButton.svelte";
   import GoalHistory from "./GoalHistory.svelte";
 </script>
 
@@ -24,17 +25,20 @@
 </style>
 
 <div class="relative bg-gray-100 flex flex-1 flex-col">
-  <div class="fixed flex justify-center items-center w-full z-10 h-12">
-    <Timer />
+  <div class="fixed flex justify-between px-4 items-center w-full z-20 h-12">
+    <div>
+      <BackButton />
+    </div>
+    <div />
+    <div class="x-center">
+      <Timer />
+    </div>
   </div>
   <ScoreDisplay />
   <RoundDisplay />
   <!-- <VolumeSlider /> -->
 
-  <img
-    src="./img/field.svg"
-    class="absolute top-0 left-0 z-0"
-    alt="Kicker field" />
+  <img src="./img/field.svg" class="y-center left-0 z-0" alt="Kicker field" />
   <span class="team team-white text-gray-300">White</span>
   <span class="team team-red text-red-400">Red</span>
 </div>

@@ -25,14 +25,11 @@
 <style>
   .round-display {
     display: grid;
-    grid-row-gap: 35px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    grid-row-gap: 5vw;
   }
 </style>
 
-<div class="round-display absolute text-gray-600 text-lg text-center">
+<div class="round-display center-center text-gray-600 text-lg text-center">
   <span on:change>Round {$round}</span>
   <span>
     <Timer bind:this={roundTimer} />
