@@ -1,7 +1,7 @@
 <script>
   export let team = "";
   export let time;
-  let minutes = Math.round(time / 60);
+  let minutes = Math.floor(time / 60);
   let seconds = Math.round(time % 60);
 </script>
 
