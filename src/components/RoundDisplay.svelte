@@ -1,5 +1,5 @@
 <script>
-  import { round } from "../stores.js";
+  import { round, goals } from "../stores.js";
   import Timer from "./Timer.svelte";
 
   let roundTimer;
@@ -10,7 +10,16 @@
     }
   }
 
+  function updateTimer() {
+    let lastGoal = $goals.slice(-1)[0];
+
+    if (roundTimer && lastGoal) {
+      roundTimer.updateTimer(lastGoal.Time);
+    }
+  }
+
   $: $round, resetRoundTimer();
+  $: $goals, updateTimer();
 </script>
 
 <style>

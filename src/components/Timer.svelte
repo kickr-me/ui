@@ -24,6 +24,14 @@
     startTimer();
   }
 
+  export function updateTimer(newTime) {
+    const minutes = Math.floor(newTime / 60);
+    const seconds = Math.round(newTime % 60);
+
+    stopwatch.seconds = seconds;
+    stopwatch.minutes = minutes;
+  }
+
   onMount(() => {
     startTimer();
   });
