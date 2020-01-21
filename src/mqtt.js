@@ -1,6 +1,6 @@
 import Paho from "paho-mqtt";
 import {
-  game_running,
+  game_status,
   just_scored,
   score_red,
   score_white,
@@ -16,6 +16,7 @@ const CHANNELS = {
   SCORE_INCREASE: "score/increase",
   ROUND_CURRENT: "round/current",
   ROUND_GOALS: "round/goals",
+  GAME_STATUS: "game/status",
   GAME_END: "game/end"
 };
 const RECONNECTION_TIMEOUT = 3000;
@@ -73,14 +74,12 @@ function handleMessages(message) {
     case CHANNELS.SCORE_RED:
       score = parseInt(message.payloadString);
       team = "red";
-
       console.log("[score/red] Message:", score);
       updateScore(team, score);
       break;
     case CHANNELS.SCORE_WHITE:
       score = parseInt(message.payloadString);
       team = "white";
-
       console.log("[score/white] Message:", score);
       updateScore(team, score);
       break;
@@ -96,10 +95,13 @@ function handleMessages(message) {
       console.log("[round/goals] Message:", message.payloadString);
       goals.set(JSON.parse(message.payloadString));
       break;
+    case CHANNELS.GAME_STATUS:
+      console.log("[game/running] Message:", message.payloadString);
+      game_status.set(message.payloadString);
+      break;
     case CHANNELS.GAME_END:
       console.log("[game/end] Message:", message.payloadString);
       just_scored.set(false);
-      game_running.set(false);
       break;
   }
 }
