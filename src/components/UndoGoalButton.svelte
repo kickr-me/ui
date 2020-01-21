@@ -52,6 +52,10 @@
   .undo-button {
     padding: 15px 46px;
   }
+
+  :global(.kiosk) .undo-group {
+    display: none;
+  }
 </style>
 
 <div

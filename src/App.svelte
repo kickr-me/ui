@@ -5,13 +5,16 @@
   import { onMount } from "svelte";
   import { connect } from "./mqtt.js";
   import { game_status } from "./stores.js";
+  import getQueryParams from "./helpers/query_params.js";
+
+  let query = getQueryParams(document.location.search);
 
   onMount(async () => {
     connect();
   });
 </script>
 
-<div class="flex flex-col h-full justify-between">
+<div class="flex flex-col h-full justify-between" class:kiosk={query.kiosk}>
   {#if $game_status === 'running'}
     <Match />
   {:else if $game_status === 'stopped'}
