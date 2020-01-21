@@ -10,14 +10,16 @@
 <style>
   .back-button:after {
     content: "";
+    position: absolute;
     width: 40px;
     height: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 </style>
 
-<div
-  class="back-button center-center relative cursor-pointer"
-  on:click={stopGame}>
+<div class="back-button relative cursor-pointer" on:click={stopGame}>
   <svg
     width="22"
     height="20"
