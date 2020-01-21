@@ -9,7 +9,7 @@
   function score(e, team) {
     const channel = "score/";
     send(channel + e.detail, team);
-    if ($just_scored === true) {
+    if (undoGoalButton) {
       undoGoalButton.resetTimer();
     }
   }

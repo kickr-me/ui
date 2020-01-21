@@ -1,32 +1,40 @@
 <script>
   import { send } from "../mqtt.js";
-  import { scale, draw, fade } from "svelte/transition";
+  import { scale } from "svelte/transition";
   import { quintOut, linear } from "svelte/easing";
   import { createEventDispatcher, onMount, onDestroy } from "svelte";
 
   const dispatch = createEventDispatcher();
-  const duration = 10000;
   let timer;
-  let runAnimation = false;
+  let ghostEl;
 
   export function resetTimer() {
     clearTimer();
-    setTimeout(() => {
-      startTimer();
-    }, 100);
+    restartAnimation();
+    startTimer();
   }
 
   export function clearTimer() {
-    clearTimeout(timer);
-    runAnimation = false;
+    clearInterval(timer);
+  }
+
+  function restartAnimation() {
+    ghostEl.classList.add("notransition");
+    ghostEl.classList.remove("ghost--animate");
+    void ghostEl.offsetWidth;
+    ghostEl.classList.remove("notransition");
   }
 
   function startTimer() {
-    runAnimation = true;
-
-    timer = setTimeout(() => {
-      dispatch("timerEnd", "");
-    }, duration);
+    let duration = 10;
+    ghostEl.classList.add("ghost--animate");
+    timer = setInterval(() => {
+      duration = duration - 1;
+      if (duration === 0) {
+        clearTimer();
+        dispatch("timerEnd", "");
+      }
+    }, 1000);
   }
 
   function undoLastScore(e) {
@@ -49,12 +57,44 @@
     bottom: 2rem;
   }
 
-  .undo-button {
-    padding: 15px 46px;
+  .button {
+    height: 60px;
+    width: 150px;
+    --clip: inset(0 0 0 0);
+  }
+
+  .ghost {
+    @apply bg-gray-500 absolute rounded-full;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    clip-path: var(--clip);
+    opacity: 0.3;
+    z-index: 1;
+    transition: clip-path 10s linear;
+  }
+
+  .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
   }
 
   :global(.kiosk) .undo-group {
     display: none;
+  }
+
+  :global(.ghost--animate) {
+    --clip: inset(0 100% 0 0);
+  }
+
+  :global(.notransition) {
+    transition: none !important;
   }
 </style>
 
@@ -63,24 +103,9 @@
   transition:scale|local={{ duration: 500, opacity: 0, start: 0.8, easing: quintOut }}>
   <button
     on:click={undoLastScore}
-    class="undo-button bg-gray-300 hover:bg-gray-400 font-semibold shadow-lg
+    class="button relative bg-gray-300 hover:bg-gray-400 font-semibold shadow-lg
     text-lg text-gray-700 rounded-full">
-    Undo
+    <span class="text">Undo</span>
+    <span bind:this={ghostEl} class="ghost" />
   </button>
-  <svg
-    class="absolute top-0 left-0 pointer-events-none"
-    width="139"
-    height="58"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg">
-    {#if !runAnimation}
-      <path
-        out:draw|local={{ duration: duration - 50, easing: linear }}
-        d="M29 1.5C13.812 1.5 1.5 13.812 1.5 29S13.812 56.5 29 56.5h81c15.188 0
-        27.5-12.312 27.5-27.5S125.188 1.5 110 1.5H29z"
-        stroke="#2D3748"
-        stroke-width="3"
-        stroke-miterlimit="16" />
-    {/if}
-  </svg>
 </div>
