@@ -14,7 +14,7 @@
 <div class="flex flex-col h-full justify-between">
   {#if $game_status === 'running'}
     <Match />
-  {:else}
+  {:else if $game_status === 'stopped'}
     <NewGame />
   {/if}
 </div>
