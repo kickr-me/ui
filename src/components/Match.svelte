@@ -8,7 +8,11 @@
 
 <style>
   .team {
-    @apply absolute text-6xl uppercase font-black leading-none;
+    @apply absolute;
+    @apply text-6xl;
+    @apply uppercase;
+    @apply font-black;
+    @apply leading-none;
   }
 
   .team-red {

@@ -69,7 +69,9 @@
   }
 
   .ghost {
-    @apply bg-gray-500 absolute rounded-full;
+    @apply bg-gray-500;
+    @apply absolute;
+    @apply rounded-full;
     content: "";
     display: block;
     width: 100%;

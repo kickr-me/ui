@@ -17,11 +17,13 @@
   }
 
   .team-red {
-    @apply bg-red-400 text-white;
+    @apply bg-red-400;
+    @apply text-white;
   }
 
   .team-white {
-    @apply bg-gray-300 text-gray-700;
+    @apply bg-gray-300;
+    @apply text-gray-700;
   }
 </style>
 
