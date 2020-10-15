@@ -15,11 +15,5 @@
 </style>
 
 <div class="slidercontainer">
-  <input
-    type="range"
-    min="0"
-    max="100"
-    bind:value
-    on:change={handleChange}
-    {value} />
+  <input type="range" min="0" max="100" on:change={handleChange} {value} />
 </div>
