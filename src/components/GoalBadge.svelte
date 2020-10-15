@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   export let team = "";
   export let time;
   let minutes = Math.floor(time / 60);

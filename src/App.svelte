@@ -1,11 +1,11 @@
-<script>
+<script lang="ts">
   import Tailwindcss from "./Tailwindcss.svelte";
   import Match from "./components/Match.svelte";
   import NewGame from "./components/NewGame.svelte";
   import { onMount } from "svelte";
-  import { connect } from "./mqtt.ts";
-  import { game_status } from "./stores.ts";
-  import getQueryParams from "./helpers/query_params.ts";
+  import { connect } from "./mqtt";
+  import { game_status } from "./stores";
+  import getQueryParams from "./helpers/query_params";
 
   let query = getQueryParams(document.location.search);
 

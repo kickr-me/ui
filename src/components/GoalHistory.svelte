@@ -1,5 +1,5 @@
-<script>
-  import { goals } from "../stores.ts";
+<script lang="ts">
+  import { goals } from "../stores";
   import GoalBadge from "./GoalBadge.svelte";
   import { afterUpdate } from "svelte";
 

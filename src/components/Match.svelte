@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import ScoreDisplay from "./ScoreDisplay.svelte";
   import RoundDisplay from "./RoundDisplay.svelte";
   import Timer from "./Timer.svelte";

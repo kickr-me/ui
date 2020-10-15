@@ -1,10 +1,10 @@
-<script>
-  import { just_scored, score_red, score_white } from "../stores.ts";
-  import { send } from "../mqtt.ts";
+<script lang="ts">
+  import { just_scored, score_red, score_white } from "../stores";
+  import { send } from "../mqtt";
   import Score from "./Score.svelte";
   import UndoGoalButton from "./UndoGoalButton.svelte";
 
-  let undoGoalButton;
+  let undoGoalButton: UndoGoalButton | undefined;
 
   function score(e, team) {
     const channel = "score/";

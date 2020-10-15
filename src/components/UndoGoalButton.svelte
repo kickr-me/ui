@@ -1,7 +1,7 @@
-<script>
-  import { send } from "../mqtt.ts";
+<script lang="ts">
+  import { send } from "../mqtt";
   import { scale } from "svelte/transition";
-  import { quintOut, linear } from "svelte/easing";
+  import { quintOut } from "svelte/easing";
   import { createEventDispatcher, onMount, onDestroy } from "svelte";
 
   const dispatch = createEventDispatcher();

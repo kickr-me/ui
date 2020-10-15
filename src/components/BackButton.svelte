@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { send } from "../mqtt.ts";
 
   function stopGame() {

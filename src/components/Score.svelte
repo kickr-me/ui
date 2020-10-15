@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import type { Writable } from "svelte/store";
 
-  export let score;
+  export let score: Writable<number>;
   const dispatch = createEventDispatcher();
 </script>
 

@@ -1,4 +1,4 @@
-function getQueryParams(qs) {
+function getQueryParams(qs): {kiosk: unknown} {
   qs = qs.split("+").join(" ");
 
   var params = {},
