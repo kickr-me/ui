@@ -1,5 +1,5 @@
 <script>
-  import { send } from "../mqtt.js";
+  import { send } from "../mqtt.ts";
   let value = 0;
 
   function handleChange(e) {

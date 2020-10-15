@@ -3,9 +3,9 @@
   import Match from "./components/Match.svelte";
   import NewGame from "./components/NewGame.svelte";
   import { onMount } from "svelte";
-  import { connect } from "./mqtt.js";
-  import { game_status } from "./stores.js";
-  import getQueryParams from "./helpers/query_params.js";
+  import { connect } from "./mqtt.ts";
+  import { game_status } from "./stores.ts";
+  import getQueryParams from "./helpers/query_params.ts";
 
   let query = getQueryParams(document.location.search);
 

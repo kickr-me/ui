@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { Stopwatch } from "../helpers/stopwatch.js";
+  import { Stopwatch } from "../helpers/stopwatch.ts";
 
   const interval = 1000;
   let timer;

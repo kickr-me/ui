@@ -1,5 +1,5 @@
 <script>
-  import { send } from "../mqtt.js";
+  import { send } from "../mqtt.ts";
 
   function startGame() {
     const channel = "game/start";

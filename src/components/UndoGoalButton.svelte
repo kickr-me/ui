@@ -1,5 +1,5 @@
 <script>
-  import { send } from "../mqtt.js";
+  import { send } from "../mqtt.ts";
   import { scale } from "svelte/transition";
   import { quintOut, linear } from "svelte/easing";
   import { createEventDispatcher, onMount, onDestroy } from "svelte";

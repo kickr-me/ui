@@ -1,5 +1,5 @@
 <script>
-  import { round, goals } from "../stores.js";
+  import { round, goals } from "../stores.ts";
   import Timer from "./Timer.svelte";
 
   let roundTimer;

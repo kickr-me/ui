@@ -1,6 +1,6 @@
 <script>
-  import { just_scored, score_red, score_white } from "../stores.js";
-  import { send } from "../mqtt.js";
+  import { just_scored, score_red, score_white } from "../stores.ts";
+  import { send } from "../mqtt.ts";
   import Score from "./Score.svelte";
   import UndoGoalButton from "./UndoGoalButton.svelte";
 
@@ -20,10 +20,12 @@
 </script>
 
 <div class="flex flex-1 relative z-10 items-center justify-around">
-  <Score score={score_white} on:scoreAdapt={e => score(e, 'white')} />
-  <Score score={score_red} on:scoreAdapt={e => score(e, 'red')} />
+  <Score score={score_white} on:scoreAdapt={(e) => score(e, 'white')} />
+  <Score score={score_red} on:scoreAdapt={(e) => score(e, 'red')} />
 
   {#if $just_scored === true}
-    <UndoGoalButton bind:this={undoGoalButton} on:timerEnd={e => hideUndo()} />
+    <UndoGoalButton
+      bind:this={undoGoalButton}
+      on:timerEnd={(e) => hideUndo()} />
   {/if}
 </div>
