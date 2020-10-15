@@ -7,6 +7,7 @@
   const dispatch = createEventDispatcher();
   let timer;
   let ghostEl;
+  let locked = false;
 
   export function resetTimer() {
     clearTimer();
@@ -38,12 +39,16 @@
   }
 
   function undoLastScore(e) {
-    const channel = "score/undo";
-    send(channel, "1");
-    dispatch("timerEnd", "");
+    if (!locked) {
+      locked = true;
+      const channel = "score/undo";
+      send(channel, "1");
+      dispatch("timerEnd", "");
+    }
   }
 
   onMount(() => {
+    locked = false;
     startTimer();
   });
 
