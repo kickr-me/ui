@@ -1,7 +1,5 @@
 export class Stopwatch {
-  constructor(minutes = 0, seconds = 0) {
-    this._seconds = seconds;
-    this._minutes = minutes;
+  constructor(private _minutes: number = 0, private _seconds: number = 0) {
   }
 
   get seconds() {

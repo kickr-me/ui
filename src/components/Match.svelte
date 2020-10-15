@@ -1,7 +1,6 @@
 <script>
   import ScoreDisplay from "./ScoreDisplay.svelte";
   import RoundDisplay from "./RoundDisplay.svelte";
-  import VolumeSlider from "./VolumeSlider.svelte";
   import Timer from "./Timer.svelte";
   import BackButton from "./BackButton.svelte";
   import GoalHistory from "./GoalHistory.svelte";
@@ -11,6 +10,7 @@
   .team {
     @apply absolute text-6xl uppercase font-black leading-none;
   }
+
   .team-red {
     top: 50%;
     right: -25px;
