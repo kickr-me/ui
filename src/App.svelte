@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Tailwindcss from "./Tailwindcss.svelte";
   import Match from "./components/Match.svelte";
   import NewGame from "./components/NewGame.svelte";
   import { onMount } from "svelte";
@@ -13,6 +12,15 @@
     connect();
   });
 </script>
+
+<style global>
+  /* purgecss start ignore */
+  @tailwind base;
+  @tailwind components;
+  /* purgecss end ignore */
+
+  @tailwind utilities;
+</style>
 
 <div class="flex flex-col h-full justify-between" class:kiosk={query.kiosk}>
   {#if $game_status === 'running'}

@@ -16,18 +16,27 @@ export default {
     sourcemap: true,
     format: "iife",
     name: "app",
-    file: "public/bundle.js",
+    file: "public/build/bundle.js",
   },
   plugins: [
     svelte({
-      preprocess: sveltePreprocess({ postcss: true }),
       // enable run-time checks when not in production
       dev: !production,
       // we'll extract any component CSS out into
       // a separate file — better for performance
       css: (css) => {
-        css.write("public/bundle.css");
+        css.write("bundle.css");
       },
+      preprocess: sveltePreprocess({
+        sourceMap: !production,
+        postcss: {
+          plugins: [
+            require("tailwindcss"),
+            require("autoprefixer"),
+            require("postcss-nesting"),
+          ],
+        },
+      }),
     }),
     typescript({ sourceMap: !production }),
     // If you have external dependencies installed from
