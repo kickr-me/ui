@@ -5,7 +5,7 @@ import {
   score_red,
   score_white,
   goals,
-  round
+  round,
 } from "./stores.js";
 
 const HOST = "172.30.1.32";
@@ -17,16 +17,13 @@ const CHANNELS = {
   ROUND_CURRENT: "round/current",
   ROUND_GOALS: "round/goals",
   GAME_STATUS: "game/status",
-  GAME_END: "game/end"
+  GAME_END: "game/end",
 };
 const RECONNECTION_TIMEOUT = 3000;
 const client = new Paho.Client(
   HOST,
   PORT,
-  "hkick_frontend_" +
-    Math.random()
-      .toString(36)
-      .substring(2)
+  "hkick_frontend_" + Math.random().toString(36).substring(2)
 );
 
 export function connect() {
@@ -37,7 +34,7 @@ export function connect() {
     onSuccess: () => {
       console.log("Connection established");
       subscribeToAllChannels();
-    }
+    },
   });
 }
 
@@ -53,7 +50,7 @@ function subscribeToAllChannels() {
     client.subscribe(channel, {
       onSuccess: () => {
         console.log("Successfully subscribed to channel:", channel);
-      }
+      },
     });
   }
 }
