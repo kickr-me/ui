@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Match from "./components/Match.svelte";
-  import NewGame from "./components/NewGame.svelte";
+  import Match from "./screens/Match.svelte";
+  import NewGame from "./screens/NewGame.svelte";
   import { onMount } from "svelte";
   import { connect } from "./mqtt";
   import { game_status } from "./stores";

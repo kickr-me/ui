@@ -1,9 +1,9 @@
 <script lang="ts">
-  import ScoreDisplay from "./ScoreDisplay.svelte";
-  import RoundDisplay from "./RoundDisplay.svelte";
-  import Timer from "./Timer.svelte";
-  import BackButton from "./BackButton.svelte";
-  import GoalHistory from "./GoalHistory.svelte";
+  import ScoreDisplay from "../components/ScoreDisplay.svelte";
+  import RoundDisplay from "../components/RoundDisplay.svelte";
+  import Timer from "../components/Timer.svelte";
+  import BackButton from "../components/BackButton.svelte";
+  import GoalHistory from "../components/GoalHistory.svelte";
 </script>
 
 <style>
