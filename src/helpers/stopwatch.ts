@@ -1,6 +1,5 @@
 export class Stopwatch {
-  constructor(private _minutes: number = 0, private _seconds: number = 0) {
-  }
+  constructor(private _minutes: number = 0, private _seconds: number = 0) {}
 
   get seconds() {
     return this._seconds;
@@ -18,7 +17,7 @@ export class Stopwatch {
     this._minutes = value;
   }
 
-  _format(value) {
+  _format(value: number) {
     if (value < 10) {
       return `0${value}`;
     } else if (value >= 10) {

@@ -2,7 +2,7 @@
   import { round, goals } from "../stores";
   import Timer from "./Timer.svelte";
 
-  let roundTimer;
+  let roundTimer: Timer;
 
   function resetRoundTimer() {
     if (roundTimer) {

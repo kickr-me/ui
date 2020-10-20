@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { send } from "../mqtt.ts";
+  import { send } from "../mqtt";
 
   function stopGame() {
     const channel = "game/stop";

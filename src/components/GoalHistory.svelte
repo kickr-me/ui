@@ -3,8 +3,8 @@
   import GoalBadge from "./GoalBadge.svelte";
   import { afterUpdate } from "svelte";
 
-  let lineWidth;
-  let timeline;
+  let lineWidth: number;
+  let timeline: HTMLElement;
 
   afterUpdate(() => {
     lineWidth = $goals.length * 50;

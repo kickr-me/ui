@@ -1,4 +1,5 @@
 import Paho from "paho-mqtt";
+import { Team } from "./helpers/config";
 import {
   game_status,
   just_scored,
@@ -20,7 +21,7 @@ const CHANNELS = {
   GAME_END: "game/end",
 };
 const RECONNECTION_TIMEOUT = 3000;
-const client = new Paho.Client(
+const client: Paho.Client = new Paho.Client(
   HOST,
   PORT,
   "hkick_frontend_" + Math.random().toString(36).substring(2)
@@ -38,10 +39,10 @@ export function connect() {
   });
 }
 
-export function send(destination, message) {
-  message = new Paho.Message(message);
-  message.destinationName = destination;
-  client.send(message);
+export function send(destination: string, message: string) {
+  const m = new Paho.Message(message);
+  m.destinationName = destination;
+  client.send(m);
 }
 
 function subscribeToAllChannels() {
@@ -55,28 +56,28 @@ function subscribeToAllChannels() {
   }
 }
 
-function onConnectionLost(responseObject) {
+function onConnectionLost(responseObject: Paho.MQTTError) {
   if (responseObject.errorCode !== 0) {
     console.log("Connection was closed - Reason:", responseObject.errorMessage);
     reconnect();
   }
 }
 
-function handleMessages(message) {
+function handleMessages(message: Paho.Message) {
   const channel = message.destinationName;
-  let score;
-  let team;
+  let score: number;
+  let team: Team;
 
   switch (channel) {
     case CHANNELS.SCORE_RED:
       score = parseInt(message.payloadString);
-      team = "red";
+      team = Team.Red;
       console.log("[score/red] Message:", score);
       updateScore(team, score);
       break;
     case CHANNELS.SCORE_WHITE:
       score = parseInt(message.payloadString);
-      team = "white";
+      team = Team.White;
       console.log("[score/white] Message:", score);
       updateScore(team, score);
       break;
@@ -86,7 +87,7 @@ function handleMessages(message) {
       break;
     case CHANNELS.ROUND_CURRENT:
       console.log("[round/current] Message:", message.payloadString);
-      round.set(message.payloadString);
+      round.set(parseInt(message.payloadString));
       break;
     case CHANNELS.ROUND_GOALS:
       console.log("[round/goals] Message:", message.payloadString);
@@ -110,12 +111,12 @@ function reconnect() {
   }, RECONNECTION_TIMEOUT);
 }
 
-function updateScore(team, score) {
+function updateScore(team: Team, score: number) {
   switch (team) {
-    case "red":
+    case Team.Red:
       score_red.set(score);
       break;
-    case "white":
+    case Team.White:
       score_white.set(score);
       break;
   }

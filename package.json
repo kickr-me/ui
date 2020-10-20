@@ -6,6 +6,7 @@
     "@rollup/plugin-node-resolve": "9.0.0",
     "@rollup/plugin-typescript": "^6.0.0",
     "@tsconfig/svelte": "^1.0.10",
+    "@types/paho-mqtt": "^1.0.4",
     "autoprefixer": "^10.0.1",
     "paho-mqtt": "1.1.0",
     "postcss": "8.1.1",

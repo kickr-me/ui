@@ -5,8 +5,8 @@
   import { createEventDispatcher, onMount, onDestroy } from "svelte";
 
   const dispatch = createEventDispatcher();
-  let timer;
-  let ghostEl;
+  let timer: number;
+  let ghostEl: HTMLElement;
   let locked = false;
 
   export function resetTimer() {
@@ -38,7 +38,7 @@
     }, 1000);
   }
 
-  function undoLastScore(e) {
+  function undoLastScore() {
     if (!locked) {
       locked = true;
       const channel = "score/undo";

@@ -3,7 +3,7 @@
   import { Stopwatch } from "../helpers/stopwatch";
 
   const interval = 1000;
-  let timer;
+  let timer: number;
   let stopwatch = new Stopwatch();
 
   function startTimer() {
@@ -24,7 +24,7 @@
     startTimer();
   }
 
-  export function updateTimer(newTime) {
+  export function updateTimer(newTime: number) {
     const minutes = Math.floor(newTime / 60);
     const seconds = Math.round(newTime % 60);
 
