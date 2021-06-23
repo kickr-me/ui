@@ -16,7 +16,7 @@
     <div class="x-center">
       <Timer />
     </div>
-    <div class="relative">
+    <div>
       <VolumeButton />
     </div>
   </div>

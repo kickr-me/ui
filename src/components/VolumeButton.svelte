@@ -1,13 +1,13 @@
 <script lang="ts">
-  import VolumeSlider from "./VolumeSlider.svelte";
   import { volume } from "../stores";
+  import VolumeSlider from "./VolumeSlider.svelte";
 
-  let slider: VolumeSlider;
+  let showSlider: boolean;
 </script>
 
 <div
-  class="volume-button relative cursor-pointer"
-  on:click={() => (slider.show = !slider.show)}
+  class="volume-button cursor-pointer"
+  on:click={() => (showSlider = !showSlider)}
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,9 @@
     {/if}
   </svg>
 </div>
-<VolumeSlider bind:this={slider} />
+{#if showSlider === true}
+  <VolumeSlider />
+{/if}
 
 <style>
   .volume-button:after {

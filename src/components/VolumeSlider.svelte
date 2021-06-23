@@ -3,8 +3,7 @@
 <script lang="ts">
   import { send } from "../mqtt";
   import { volume } from "../stores";
-
-  export let show = false;
+  import { fade } from "svelte/transition";
 
   function handleChange() {
     const channel = "sound/volume";
@@ -12,11 +11,17 @@
   }
 </script>
 
-<div class="hidden absolute top-full right-0" class:hidden={!show}>
+<div
+  class=" absolute top-full w-full right-0 px-4"
+  transition:fade|local={{
+    duration: 300,
+  }}
+>
   <input
     type="range"
     min="0"
     max="100"
+    class="w-full"
     on:change={handleChange}
     bind:value={$volume}
   />
