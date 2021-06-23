@@ -1,19 +1,23 @@
+<svelte:options accessors={true} />
+
 <script lang="ts">
   import { send } from "../mqtt";
-  let value = 0;
+  import { volume } from "../stores";
 
-  function handleChange(e) {
+  export let show = false;
+
+  function handleChange() {
     const channel = "sound/volume";
-    send(channel, value.toString());
+    send(channel, $volume.toString(), true);
   }
 </script>
 
-<style>
-  .slidercontainer {
-    margin-left: 20px;
-  }
-</style>
-
-<div class="slidercontainer">
-  <input type="range" min="0" max="100" on:change={handleChange} {value} />
+<div class="hidden absolute top-full right-0" class:hidden={!show}>
+  <input
+    type="range"
+    min="0"
+    max="100"
+    on:change={handleChange}
+    bind:value={$volume}
+  />
 </div>
