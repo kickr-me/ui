@@ -7,7 +7,8 @@ import {
   score_white,
   goals,
   round,
-} from "./stores.js";
+  volume,
+} from "./stores";
 
 const HOST = "172.30.1.32";
 const PORT = 9001;
@@ -19,6 +20,7 @@ const CHANNELS = {
   ROUND_GOALS: "round/goals",
   GAME_STATUS: "game/status",
   GAME_END: "game/end",
+  VOLUME: "sound/volume",
 };
 const RECONNECTION_TIMEOUT = 3000;
 const client: Paho.Client = new Paho.Client(
@@ -39,9 +41,14 @@ export function connect() {
   });
 }
 
-export function send(destination: string, message: string) {
+export function send(
+  destination: string,
+  message: string,
+  retained: boolean = false
+) {
   const m = new Paho.Message(message);
   m.destinationName = destination;
+  m.retained = retained;
   client.send(m);
 }
 
@@ -100,6 +107,10 @@ function handleMessages(message: Paho.Message) {
     case CHANNELS.GAME_END:
       console.log("[game/end] Message:", message.payloadString);
       just_scored.set(false);
+      break;
+    case CHANNELS.VOLUME:
+      console.log("[sound/volume] Message:", message.payloadString);
+      volume.set(message.payloadString);
       break;
   }
 }
