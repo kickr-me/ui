@@ -24,10 +24,10 @@
 </style>
 
 <div class="flex flex-col h-full justify-between" class:kiosk={query.kiosk}>
-  <!-- {#if $game_status === 'running'} -->
-    <!-- <Match /> -->
-  <!-- {:else if $game_status === 'stopped'} -->
+  {#if $game_status === 'running'}
+    <Match />
+  {:else if $game_status === 'stopped'}
     <!-- <NewGame /> -->
     <PlayerSelect />
-  <!-- {/if} -->
+  {/if}
 </div>
