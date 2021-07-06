@@ -1,47 +1,52 @@
 <script lang="ts">
   import Player from "../components/Player/Player.svelte";
+  import Team from "../components/Team.svelte";
   import { send } from "../mqtt";
+  import { selected_players } from "../stores";
+  import type { IPlayer } from "../interfaces/player";
 
   const maxPlayerCount = 4;
+  $selected_players.fill(undefined);
 
-  let selectedPlayers: number[] = new Array(maxPlayerCount);
-  selectedPlayers.fill(undefined);
-  Object.seal(selectedPlayers);
-
-  const addOrRemovePlayer = (id: number) => {
-    const exists = selectedPlayers.includes(id);
+  const addOrRemovePlayer = (player: IPlayer) => {
+    const exists = $selected_players.includes(player);
 
     if (exists) {
-      const index = selectedPlayers.indexOf(id);
-      selectedPlayers[index] = undefined;
+      const index = $selected_players.indexOf(player);
+      $selected_players[index] = undefined;
     } else {
-      const index = selectedPlayers.indexOf(undefined);
+      const index = $selected_players.indexOf(undefined);
       if (index !== -1) {
-        selectedPlayers[index] = id;
+        $selected_players[index] = player;
       }
     }
   };
 
-  function startGame() {
+  const startGame = () => {
     const channel = "game/start";
     send(channel, "");
-  }
+  };
 
   //https://dashboard.kickr.me/players.json/
-  const fetchPlayers = (async () => {
+  const fetchPlayers = (async (): Promise<IPlayer[]> => {
     const response = await fetch(`https://dashboard.kickr.me/players.json`);
     return await response.json();
   })();
 
-  $: selectedPlayerCount = selectedPlayers.filter(
+  $: selectedPlayerCount = $selected_players.filter(
     (v) => v !== undefined
   ).length;
+  $: remainingSlots = maxPlayerCount - selectedPlayerCount;
 </script>
 
 <div class="relative bg-gray-100 flex flex-1 flex-col h-full">
   <div class="flex justify-between px-4 items-center w-full z-20 h-20">
     <div class="x-center text-gray-700 font-semibold text-xl">
-      Select {maxPlayerCount - selectedPlayerCount} more players
+      {#if remainingSlots !== 0}
+        Select {remainingSlots} more players
+      {:else}
+        Let's go!
+      {/if}
     </div>
   </div>
   <div class="player-grid px-16 pt-4 overflow-scroll">
@@ -52,10 +57,10 @@
         {#each players as player}
           <Player
             {player}
-            on:click={() => addOrRemovePlayer(player.id)}
-            selected={selectedPlayers.includes(player.id)}
+            on:click={() => addOrRemovePlayer(player)}
+            selected={$selected_players.includes(player)}
             disabled={selectedPlayerCount === maxPlayerCount &&
-              !selectedPlayers.includes(player.id)}
+              !$selected_players.includes(player)}
           />
         {/each}
       {:catch error}
@@ -64,15 +69,17 @@
     </div>
   </div>
   <div
-    class="fixed flex justify-center items-start px-4 w-full z-20 h-20 bottom-0"
+    class="fixed flex justify-between items-start px-4 w-full z-20 h-20 bottom-0"
   >
+    <Team team={0} />
     <button
       on:click={startGame}
-      class="bg-gray-800 hover:bg-gray-700 font-semibold shadow-lg text-xl
-      text-gray-100 py-4 px-6 rounded-full z-20"
+      class="bg-gray-800 hover:bg-gray-700 font-semibold shadow-lg text-xl text-gray-100 py-4 px-6 rounded-full z-20 disabled:bg-gray-400 disabled:shadow-none"
+      disabled={selectedPlayerCount !== maxPlayerCount}
     >
       Start game
     </button>
+    <Team team={1} />
     <div class="bottom-bar-gradient absolute w-full h-40 bottom-0 z-10" />
   </div>
 </div>
