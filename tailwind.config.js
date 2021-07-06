@@ -12,6 +12,11 @@ module.exports = {
   },
   variants: {
     scale: ["active"],
+    extend: {
+      opacity: ["disabled"],
+      backgroundColor: ["disabled"],
+      boxShadow: ["disabled"],
+    },
   },
   plugins: [],
   purge: {
