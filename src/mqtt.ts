@@ -2,11 +2,12 @@ import Paho from "paho-mqtt";
 import { Team } from "./helpers/config";
 import {
   game_status,
+  goals,
   just_scored,
+  players,
+  round,
   score_red,
   score_white,
-  goals,
-  round,
   volume,
 } from "./stores";
 
@@ -21,6 +22,7 @@ const CHANNELS = {
   GAME_STATUS: "game/status",
   GAME_END: "game/end",
   VOLUME: "sound/volume",
+  PLAYERS: "players",
 };
 const RECONNECTION_TIMEOUT = 3000;
 const client: Paho.Client = new Paho.Client(
@@ -114,6 +116,9 @@ function handleMessages(message: Paho.Message) {
     case CHANNELS.VOLUME:
       console.log("[sound/volume] Message:", message.payloadString);
       volume.set(message.payloadString);
+      break;
+    case CHANNELS.PLAYERS:
+      players.set(JSON.parse(message.payloadString));
       break;
   }
 }
