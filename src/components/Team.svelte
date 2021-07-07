@@ -42,6 +42,7 @@
       selected={true}
       size={"small"}
       role={"attack"}
+      team={teamIndex()}
     />
   {:else}
     {@html placeholder}
@@ -56,6 +57,7 @@
       selected={true}
       size={"small"}
       role={"defense"}
+      team={teamIndex()}
     />
   {:else}
     {@html placeholder}

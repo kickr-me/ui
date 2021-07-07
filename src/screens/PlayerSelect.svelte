@@ -61,6 +61,7 @@
             selected={$selected_players.includes(player)}
             disabled={selectedPlayerCount === maxPlayerCount &&
               !$selected_players.includes(player)}
+            team={0}
           />
         {/each}
       {:catch error}
