@@ -1,8 +1,9 @@
-<script>
-  export let avatarUrl;
+<script lang="ts">
+  export let avatarUrl: string;
   export let selected = false;
   export let size = "big";
   export let role = "";
+  export let team: number;
 
   const swordIcon = `<svg
           xmlns="http://www.w3.org/2000/svg"
@@ -31,8 +32,9 @@
 
 <div class="relative">
   <div
-    class="player__avatar mb-2 rounded-full overflow-hidden {size}"
-    class:selected={selected === true}
+    class={`player__avatar mb-2 rounded-full overflow-hidden ${size} ${
+      selected ? "border-solid border-4" : ""
+    } ${selected && team === 0 ? "border-red-400" : "border-gray-300"}`}
   >
     <img
       src={avatarUrl
@@ -44,7 +46,9 @@
   </div>
   {#if role}
     <span
-      class="absolute top-0 right-0 text-white bg-red-400 p-1 rounded-full "
+      class={`absolute top-0 right-0 p-1 rounded-full ${
+        team === 0 ? "bg-red-400 text-white" : "bg-gray-300 text-gray-700"
+      }`}
     >
       {#if role === "attack"}
         {@html swordIcon}
@@ -64,11 +68,5 @@
   .player__avatar.small {
     height: 64px;
     width: 64px;
-  }
-
-  .selected {
-    @apply border-solid;
-    @apply border-4;
-    @apply border-red-400;
   }
 </style>

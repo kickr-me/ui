@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
+  import type { IPlayer } from "../../interfaces/player";
   import PlayerAvatar from "./PlayerAvatar.svelte";
 
-  export let player;
+  export let player: IPlayer;
   export let selected = false;
   export let disabled = false;
+  export let team: number;
 </script>
 
 <div
@@ -13,7 +15,7 @@
   class:disabled
   on:click
 >
-  <PlayerAvatar avatarUrl={player.avatar_url} {selected} />
+  <PlayerAvatar avatarUrl={player.avatar_url} {selected} {team} />
   <span class="block text-center text-gray-700 font-semibold"
     >{player.username}</span
   >

@@ -57,9 +57,28 @@
   });
 </script>
 
+<div
+  class="undo-group absolute"
+  transition:scale|local={{
+    duration: 500,
+    opacity: 0,
+    start: 0.8,
+    easing: quintOut,
+  }}
+>
+  <button
+    on:click={undoLastScore}
+    class="button relative bg-gray-300 hover:bg-gray-400 font-semibold shadow-lg
+    text-lg text-gray-700 rounded-full"
+  >
+    <span class="text center-center">Undo</span>
+    <span bind:this={ghostEl} class="ghost" />
+  </button>
+</div>
+
 <style>
   .undo-group {
-    bottom: 2rem;
+    bottom: 1rem;
   }
 
   .button {
@@ -100,15 +119,3 @@
     transition: none !important;
   }
 </style>
-
-<div
-  class="undo-group absolute"
-  transition:scale|local={{ duration: 500, opacity: 0, start: 0.8, easing: quintOut }}>
-  <button
-    on:click={undoLastScore}
-    class="button relative bg-gray-300 hover:bg-gray-400 font-semibold shadow-lg
-    text-lg text-gray-700 rounded-full">
-    <span class="text center-center">Undo</span>
-    <span bind:this={ghostEl} class="ghost" />
-  </button>
-</div>
