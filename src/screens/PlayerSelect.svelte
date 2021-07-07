@@ -2,7 +2,7 @@
   import Player from "../components/Player/Player.svelte";
   import Team from "../components/Team.svelte";
   import { send } from "../mqtt";
-  import { selected_players } from "../stores";
+  import { selected_players, teams } from "../stores";
   import type { IPlayer } from "../interfaces/player";
 
   const maxPlayerCount = 4;
@@ -24,7 +24,11 @@
 
   const startGame = () => {
     const channel = "game/start";
-    send(channel, "");
+    $teams.red.attack = $selected_players[0];
+    $teams.red.defense = $selected_players[1];
+    $teams.white.attack = $selected_players[2];
+    $teams.white.defense = $selected_players[3];
+    send(channel, JSON.stringify($teams));
   };
 
   //https://dashboard.kickr.me/players.json/

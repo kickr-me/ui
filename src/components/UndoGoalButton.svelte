@@ -5,7 +5,7 @@
   import { createEventDispatcher, onMount, onDestroy } from "svelte";
 
   const dispatch = createEventDispatcher();
-  let timer: number;
+  let timer: NodeJS.Timeout;
   let ghostEl: HTMLElement;
   let locked = false;
 
@@ -31,9 +31,9 @@
     ghostEl.classList.add("ghost--animate");
     timer = setInterval(() => {
       duration = duration - 1;
-      if (duration === 0) {
-        clearTimer();
+      if (duration <= 0) {
         dispatch("timerEnd", "");
+        clearTimer();
       }
     }, 1000);
   }
