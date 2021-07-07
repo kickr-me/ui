@@ -103,6 +103,9 @@ function handleMessages(message: Paho.Message) {
     case CHANNELS.GAME_STATUS:
       console.log("[game/running] Message:", message.payloadString);
       game_status.set(message.payloadString);
+      if (message.payloadString === "stopped") {
+        just_scored.set(false);
+      }
       break;
     case CHANNELS.GAME_END:
       console.log("[game/end] Message:", message.payloadString);

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import { Stopwatch } from "../helpers/stopwatch";
 
   const interval = 1000;
-  let timer: number;
+  let timer: NodeJS.Timeout;
   let stopwatch = new Stopwatch();
 
   function startTimer() {
@@ -34,6 +34,10 @@
 
   onMount(() => {
     startTimer();
+  });
+
+  onDestroy(() => {
+    clearInterval(timer);
   });
 </script>
 
