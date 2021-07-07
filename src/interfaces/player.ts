@@ -5,4 +5,5 @@ export interface IPlayer {
   url: string;
   created_at: string;
   updated_at: string;
+  vip: boolean;
 }

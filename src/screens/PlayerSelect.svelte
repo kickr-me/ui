@@ -47,7 +47,7 @@
       {/if}
     </div>
   </div>
-  <div class="player-grid px-16 pt-4 overflow-scroll">
+  <div class="h-full px-16 pt-4 overflow-scroll">
     <div class="grid grid-cols-5 gap-8 pb-32">
       {#each $players as player}
         <Player
@@ -87,9 +87,5 @@
       rgba(247, 250, 252, 0.713542) 40%,
       rgba(247, 250, 252, 0) 80%
     );
-  }
-
-  .player-grid {
-    height: 100%;
   }
 </style>
