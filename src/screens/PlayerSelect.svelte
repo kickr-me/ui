@@ -2,7 +2,7 @@
   import Player from "../components/Player/Player.svelte";
   import Team from "../components/Team.svelte";
   import { send } from "../mqtt";
-  import { selected_players, teams } from "../stores";
+  import { players, selected_players, teams } from "../stores";
   import type { IPlayer } from "../interfaces/player";
 
   const maxPlayerCount = 4;
@@ -31,12 +31,6 @@
     send(channel, JSON.stringify($teams));
   };
 
-  //https://dashboard.kickr.me/players.json/
-  const fetchPlayers = (async (): Promise<IPlayer[]> => {
-    const response = await fetch(`https://dashboard.kickr.me/players.json`);
-    return await response.json();
-  })();
-
   $: selectedPlayerCount = $selected_players.filter(
     (v) => v !== undefined
   ).length;
@@ -55,22 +49,16 @@
   </div>
   <div class="player-grid px-16 pt-4 overflow-scroll">
     <div class="grid grid-cols-5 gap-8 pb-32">
-      {#await fetchPlayers}
-        <p>Loading players...</p>
-      {:then players}
-        {#each players as player}
-          <Player
-            {player}
-            on:click={() => addOrRemovePlayer(player)}
-            selected={$selected_players.includes(player)}
-            disabled={selectedPlayerCount === maxPlayerCount &&
-              !$selected_players.includes(player)}
-            team={0}
-          />
-        {/each}
-      {:catch error}
-        <p>Can't load players!</p>
-      {/await}
+      {#each $players as player}
+        <Player
+          {player}
+          on:click={() => addOrRemovePlayer(player)}
+          selected={$selected_players.includes(player)}
+          disabled={selectedPlayerCount === maxPlayerCount &&
+            !$selected_players.includes(player)}
+          team={0}
+        />
+      {/each}
     </div>
   </div>
   <div
