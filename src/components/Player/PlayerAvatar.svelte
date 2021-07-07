@@ -5,6 +5,9 @@
   export let role = "";
   export let team: number;
 
+  const placeholderImg =
+    "https://thebark.com/sites/default/files/styles/feature/public/content/article/full/toshi-1072049-unsplash.jpg?itok=WJGzLyJ4";
+
   const swordIcon = `<svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -37,9 +40,7 @@
     } ${selected && team === 0 ? "border-red-400" : "border-gray-300"}`}
   >
     <img
-      src={avatarUrl
-        ? avatarUrl
-        : "https://thebark.com/sites/default/files/styles/feature/public/content/article/full/toshi-1072049-unsplash.jpg?itok=WJGzLyJ4"}
+      src={avatarUrl ? avatarUrl : placeholderImg}
       alt=""
       class="object-cover w-full h-full"
     />
