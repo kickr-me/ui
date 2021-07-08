@@ -1,9 +1,9 @@
-import { get, writable } from "svelte/store";
-import type { IPlayer } from "./interfaces/player";
+import { writable } from "svelte/store";
+import type { ITeams } from "./interfaces/teams";
 
-let Team = {
-  attack: "",
-  defense: "",
+export const teamsObj: ITeams = {
+  red: { attack: undefined, defense: undefined },
+  white: { attack: undefined, defense: undefined },
 };
 
 export const game_status = writable("stopped");
@@ -15,13 +15,4 @@ export const round = writable(1);
 export const volume = writable("50");
 export const players = writable([]);
 export const max_player_count = writable(4);
-export const teams = writable({
-  red: Object.create(Team),
-  white: Object.create(Team),
-});
-
-let selectedPlayers: IPlayer[] = new Array(get(max_player_count));
-selectedPlayers.fill(undefined);
-Object.seal(selectedPlayers);
-
-export const selected_players = writable(selectedPlayers);
+export const teams = writable(teamsObj);

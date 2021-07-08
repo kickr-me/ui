@@ -8,6 +8,8 @@ import {
   round,
   score_red,
   score_white,
+  teams,
+  teamsObj,
   volume,
 } from "./stores";
 
@@ -20,6 +22,7 @@ const CHANNELS = {
   ROUND_CURRENT: "round/current",
   ROUND_GOALS: "round/goals",
   GAME_STATUS: "game/status",
+  GAME_START: "game/start",
   GAME_END: "game/end",
   VOLUME: "sound/volume",
   PLAYERS: "players",
@@ -103,15 +106,27 @@ function handleMessages(message: Paho.Message) {
       goals.set(JSON.parse(message.payloadString));
       break;
     case CHANNELS.GAME_STATUS:
-      console.log("[game/running] Message:", message.payloadString);
+      console.log("[game/status] Message:", message.payloadString);
       game_status.set(message.payloadString);
       if (message.payloadString === "stopped") {
+        teams.set({
+          red: { attack: undefined, defense: undefined },
+          white: { attack: undefined, defense: undefined },
+        });
         just_scored.set(false);
       }
+      break;
+    case CHANNELS.GAME_START:
+      console.log("[game/start] Message:", message.payloadString);
+      teams.set(JSON.parse(message.payloadString));
       break;
     case CHANNELS.GAME_END:
       console.log("[game/end] Message:", message.payloadString);
       just_scored.set(false);
+      teams.set({
+        red: { attack: undefined, defense: undefined },
+        white: { attack: undefined, defense: undefined },
+      });
       break;
     case CHANNELS.VOLUME:
       console.log("[sound/volume] Message:", message.payloadString);

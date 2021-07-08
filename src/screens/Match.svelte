@@ -5,23 +5,15 @@
   import BackButton from "../components/BackButton.svelte";
   import GoalHistory from "../components/GoalHistory.svelte";
   import VolumeButton from "../components/VolumeButton.svelte";
-  import { round, selected_players } from "../stores";
+  import { round, teams } from "../stores";
 
   const playerName = (playerName: string) =>
     `<span class="text-gray-500">${playerName}</span>`;
 
   const swapTeams = () => {
-    [
-      $selected_players[0],
-      $selected_players[1],
-      $selected_players[2],
-      $selected_players[3],
-    ] = [
-      $selected_players[2],
-      $selected_players[3],
-      $selected_players[0],
-      $selected_players[1],
-    ];
+    const tempTeam = $teams.red;
+    $teams.red = $teams.white;
+    $teams.white = tempTeam;
   };
 
   // Swap teams once before the match so that they get swapped
@@ -49,18 +41,14 @@
   <img src="./img/field.svg" class="y-center left-0 z-0" alt="Kicker field" />
   <span class="team team-white text-gray-300">White</span>
   <span class="team team-red text-red-400">Red</span>
-  {#if !$selected_players.includes(undefined)}
-    <div class="flex justify-between px-4 pb-4 text-sm">
-      <div class="flex flex-col">
-        {@html playerName($selected_players[0].username)}
-        {@html playerName($selected_players[1].username)}
+  <div class="flex justify-between px-4 pb-4 text-sm">
+    {#each Object.keys($teams) as team, i}
+      <div class={`flex flex-col ${i === 1 ? "text-right" : ""}`}>
+        {@html playerName($teams[team].attack?.username)}
+        {@html playerName($teams[team].defense?.username)}
       </div>
-      <div class="flex flex-col text-right">
-        {@html playerName($selected_players[2].username)}
-        {@html playerName($selected_players[3].username)}
-      </div>
-    </div>
-  {/if}
+    {/each}
+  </div>
 </div>
 
 <GoalHistory />

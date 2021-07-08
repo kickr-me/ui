@@ -1,16 +1,8 @@
 <script lang="ts">
-  import { selected_players } from "../stores";
+  import { teams } from "../stores";
   import PlayerAvatar from "./Player/PlayerAvatar.svelte";
 
-  export let team: number;
-
-  const teamIndex = (): number => {
-    if (team === 0) {
-      return 0;
-    } else {
-      return 2;
-    }
-  };
+  export let team: string;
 
   const switchIcon = `<svg
         width="27"
@@ -24,10 +16,9 @@
       >`;
 
   const switchRoles = () => {
-    [$selected_players[teamIndex()], $selected_players[teamIndex() + 1]] = [
-      $selected_players[teamIndex() + 1],
-      $selected_players[teamIndex()],
-    ];
+    const temp = $teams[team].attack;
+    $teams[team].attack = $teams[team].defense;
+    $teams[team].defense = temp;
   };
 
   const placeholder = `<div class="w-16 h-16 rounded-full bg-gray-300"><svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-100" viewBox="0 0 20 20" fill="currentColor">
@@ -36,13 +27,13 @@
 </script>
 
 <div class="flex flex-row gap-4 h-16 z-20">
-  {#if $selected_players[teamIndex()] !== undefined}
+  {#if $teams[team].attack !== undefined}
     <PlayerAvatar
-      avatarUrl={$selected_players[teamIndex()].avatar_url}
+      avatarUrl={$teams[team].attack.avatar_url}
       selected={true}
       size={"small"}
       role={"attack"}
-      team={teamIndex()}
+      {team}
     />
   {:else}
     {@html placeholder}
@@ -51,13 +42,13 @@
     class="flex h-11 w-11 rounded-full self-center justify-center place-items-center bg-gray-300"
     on:click={() => switchRoles()}>{@html switchIcon}</button
   >
-  {#if $selected_players[teamIndex() + 1] !== undefined}
+  {#if $teams[team].defense !== undefined}
     <PlayerAvatar
-      avatarUrl={$selected_players[teamIndex() + 1].avatar_url}
+      avatarUrl={$teams[team].defense.avatar_url}
       selected={true}
       size={"small"}
       role={"defense"}
-      team={teamIndex()}
+      {team}
     />
   {:else}
     {@html placeholder}

@@ -1,6 +1,5 @@
 <script lang="ts">
   import { send } from "../mqtt";
-  import { selected_players } from "../stores";
 
   function stopGame() {
     const channel = "game/stop";

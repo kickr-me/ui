@@ -1,11 +1,15 @@
 <script lang="ts">
   import type { IPlayer } from "../../interfaces/player";
+  import { teams } from "../../stores";
   import PlayerAvatar from "./PlayerAvatar.svelte";
 
   export let player: IPlayer;
-  export let selected = false;
   export let disabled = false;
-  export let team: number;
+  export let team: string;
+
+  $: selected =
+    Object.values($teams.red).includes(player) ||
+    Object.values($teams.white).includes(player);
 </script>
 
 <div

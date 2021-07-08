@@ -3,7 +3,7 @@
   export let selected = false;
   export let size = "big";
   export let role = "";
-  export let team: number;
+  export let team: string;
 
   const placeholderImg =
     "https://thebark.com/sites/default/files/styles/feature/public/content/article/full/toshi-1072049-unsplash.jpg?itok=WJGzLyJ4";
@@ -37,7 +37,7 @@
   <div
     class={`player__avatar mb-2 rounded-full overflow-hidden ${size} ${
       selected ? "border-solid border-4" : ""
-    } ${selected && team === 0 ? "border-red-400" : "border-gray-300"}`}
+    } ${selected && team === "red" ? "border-red-400" : "border-gray-300"}`}
   >
     <img
       src={avatarUrl ? avatarUrl : placeholderImg}
@@ -48,7 +48,7 @@
   {#if role}
     <span
       class={`absolute top-0 right-0 p-1 rounded-full ${
-        team === 0 ? "bg-red-400 text-white" : "bg-gray-300 text-gray-700"
+        team === "red" ? "bg-red-400 text-white" : "bg-gray-300 text-gray-700"
       }`}
     >
       {#if role === "attack"}
