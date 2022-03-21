@@ -10,20 +10,9 @@ module.exports = {
       },
     },
   },
-  variants: {
-    scale: ["active"],
-    extend: {
-      opacity: ["disabled"],
-      backgroundColor: ["disabled"],
-      boxShadow: ["disabled"],
-    },
-  },
   plugins: [],
-  purge: {
-    content: [
-      "./src/**/*.svelte",
-      // may also want to include base index.html
-    ],
-    enabled: production, // disable purge in dev
-  },
+  content: [
+    "./src/**/*.svelte",
+    // may also want to include base index.html
+  ],
 };

@@ -4,6 +4,7 @@
   import { send } from "../mqtt";
   import { players, teams } from "../stores";
   import type { IPlayer } from "../interfaces/player";
+  import { onMount } from "svelte";
 
   const maxPlayerCount = 4;
 
@@ -44,6 +45,10 @@
     const channel = "game/start";
     send(channel, JSON.stringify($teams), true);
   };
+
+  onMount(() => {
+    teams.reset();
+  });
 
   $: selectedPlayerCount = [
     ...Object.values($teams.red),
