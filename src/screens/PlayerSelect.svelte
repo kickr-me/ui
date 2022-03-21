@@ -42,7 +42,7 @@
 
   const startGame = () => {
     const channel = "game/start";
-    send(channel, JSON.stringify($teams));
+    send(channel, JSON.stringify($teams), true);
   };
 
   $: selectedPlayerCount = [
