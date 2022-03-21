@@ -27,6 +27,7 @@
   {#if $just_scored === true}
     <UndoGoalButton
       bind:this={undoGoalButton}
-      on:timerEnd={(e) => hideUndo()} />
+      on:timerEnd={(e) => hideUndo()}
+    />
   {/if}
 </div>

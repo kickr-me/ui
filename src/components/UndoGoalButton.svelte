@@ -16,6 +16,8 @@
   }
 
   export function clearTimer() {
+    dispatch("timerEnd", "");
+    locked = false;
     clearInterval(timer);
   }
 
@@ -32,7 +34,6 @@
     timer = setInterval(() => {
       duration = duration - 1;
       if (duration <= 0) {
-        dispatch("timerEnd", "");
         clearTimer();
       }
     }, 1000);
