@@ -1,6 +1,5 @@
 import { writable } from "svelte/store";
 import type { ITeams } from "./interfaces/teams";
-import { send } from "./mqtt";
 
 const teamsObj: ITeams = {
   red: { attack: undefined, defense: undefined },
@@ -34,3 +33,4 @@ export const max_player_count = writable(4);
 export const teams = createTeam();
 export const spotify_status = writable("");
 export const spotify_track = writable({});
+export const winner = writable("");

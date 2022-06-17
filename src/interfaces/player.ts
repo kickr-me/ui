@@ -6,4 +6,6 @@ export interface IPlayer {
   created_at: string;
   updated_at: string;
   vip: boolean;
+  skill: {};
+  skill_diff: number;
 }
