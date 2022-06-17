@@ -1,10 +1,20 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+
   import { send } from "../mqtt";
 
-  function stopGame() {
-    const channel = "game/stop";
-    send(channel, "");
-  }
+  const dispatch = createEventDispatcher();
+
+  // function stopGame() {
+  //   const channel = "game/stop";
+  //   send(channel, "");
+  // }
+
+  const stopGame = () => {
+    // const channel = "game/stop";
+    // send(channel, "");
+    dispatch("stopGame");
+  };
 </script>
 
 <div class="back-button relative cursor-pointer" on:click={stopGame}>

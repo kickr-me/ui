@@ -4,6 +4,9 @@
   import type { IPlayer } from "../interfaces/player";
   import { send } from "../mqtt";
   import { teams, winner, players } from "../stores";
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
 
   let winningTeam: IPlayer[];
   let losingTeam: IPlayer[];
@@ -37,6 +40,8 @@
   const round = (num: number) => {
     return Math.round((num + Number.EPSILON) * 100) / 100;
   };
+
+  const endSummary = () => dispatch("endSummary");
 </script>
 
 <div
@@ -82,11 +87,34 @@
       </div>
     </div>
   </div>
-  <BackButton />
-  <button
-    on:click={startGame}
-    class="bg-gray-800 hover:bg-gray-700 font-semibold shadow-lg text-xl text-gray-100 py-4 px-6 rounded-full z-20 disabled:bg-gray-400 disabled:shadow-none"
-  >
-    Rematch
-  </button>
+  <div class="flex flex-row">
+    <button
+      on:click={endSummary}
+      class="bg-gray-300 hover:bg-gray-200 font-semibold shadow-lg text-xl py-4 px-6 mr-4 rounded-full z-20"
+    >
+      <svg
+        width="22"
+        height="20"
+        class="fill-current text-gray-800"
+        viewBox="0 0 22 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M19.3644 8.072H6.47085L11.4716 3.28815C12.1886 2.53502 12.1886 1.31797
+          11.4716 0.564844C10.7546 -0.188281 9.59181 -0.188281 8.8688
+          0.564844L0.54225 8.63835C0.18075 8.9878 0 9.46377 0 9.98795V10.0121C0
+          10.5362 0.18075 11.0122 0.54225 11.3617L8.86278 19.4352C9.58578 20.1883
+          10.7486 20.1883 11.4656 19.4352C12.1826 18.682 12.1826 17.465 11.4656
+          16.7119L6.46483 11.928H19.3583C20.3766 11.928 21.202 11.0664 21.202
+          10C21.208 8.9155 20.3826 8.072 19.3644 8.072Z"
+        />
+      </svg>
+    </button>
+    <button
+      on:click={startGame}
+      class="bg-gray-800 hover:bg-gray-700 font-semibold shadow-lg text-xl text-gray-100 py-4 px-6 rounded-full z-20 disabled:bg-gray-400 disabled:shadow-none"
+    >
+      Rematch
+    </button>
+  </div>
 </div>
