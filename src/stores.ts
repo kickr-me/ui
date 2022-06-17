@@ -32,3 +32,5 @@ export const volume = writable("50");
 export const players = writable([]);
 export const max_player_count = writable(4);
 export const teams = createTeam();
+export const spotify_status = writable("");
+export const spotify_track = writable({});

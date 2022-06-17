@@ -10,6 +10,8 @@ import {
   score_white,
   teams,
   volume,
+  spotify_status,
+  spotify_track,
 } from "./stores";
 import { get } from "svelte/store";
 
@@ -27,6 +29,8 @@ const CHANNELS = {
   GAME_END: "game/end",
   VOLUME: "sound/volume",
   PLAYERS: "players",
+  SPOTIFY_STATUS: "spotify/status",
+  SPOTIFY_TRACK: "spotify/track",
 };
 const RECONNECTION_TIMEOUT = 3000;
 const client: Paho.Client = new Paho.Client(
@@ -136,6 +140,14 @@ function handleMessages(message: Paho.Message) {
       break;
     case CHANNELS.PLAYERS:
       players.set(JSON.parse(message.payloadString));
+      break;
+    case CHANNELS.SPOTIFY_STATUS:
+      console.log(message.payloadString);
+      spotify_status.set(message.payloadString);
+      break;
+    case CHANNELS.SPOTIFY_TRACK:
+      console.log(message.payloadString);
+      spotify_track.set(JSON.parse(message.payloadString));
       break;
   }
 }
