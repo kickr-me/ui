@@ -11,6 +11,7 @@ import {
   teams,
   volume,
 } from "./stores";
+import { get } from "svelte/store";
 
 const HOST = "172.30.1.32";
 const PORT = 9001;
@@ -115,12 +116,14 @@ function handleMessages(message: Paho.Message) {
       break;
     case CHANNELS.GAME_START:
       console.log("[game/start] Message:", message.payloadString);
-      teams.set(JSON.parse(message.payloadString));
+      if (get(game_status) === "running") {
+        teams.set(JSON.parse(message.payloadString));
+      }
       break;
     case CHANNELS.GAME_STOP:
       console.log("[game/stop] Message:", message.payloadString);
       just_scored.set(false);
-      teams.reset();      
+      teams.reset();
       break;
     case CHANNELS.GAME_END:
       console.log("[game/end] Message:", message.payloadString);

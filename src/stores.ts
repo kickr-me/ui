@@ -1,5 +1,6 @@
 import { writable } from "svelte/store";
 import type { ITeams } from "./interfaces/teams";
+import { send } from "./mqtt";
 
 const teamsObj: ITeams = {
   red: { attack: undefined, defense: undefined },
@@ -12,11 +13,12 @@ function createTeam() {
   return {
     subscribe,
     set: (value: any) => set(value),
-    reset: () =>
+    reset: () => {
       set({
         red: { attack: undefined, defense: undefined },
         white: { attack: undefined, defense: undefined },
-      }),
+      });
+    },
   };
 }
 
