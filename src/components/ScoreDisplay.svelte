@@ -18,6 +18,10 @@
   function hideUndo() {
     just_scored.set(false);
   }
+
+  $: if ($just_scored === true) {
+    undoGoalButton?.resetTimer();
+  }
 </script>
 
 <div class="flex flex-1 relative z-10 items-center justify-around">

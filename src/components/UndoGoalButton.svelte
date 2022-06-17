@@ -10,7 +10,8 @@
   let locked = false;
 
   export function resetTimer() {
-    clearTimer();
+    locked = false;
+    clearInterval(timer);
     restartAnimation();
     startTimer();
   }
@@ -50,7 +51,7 @@
 
   onMount(() => {
     locked = false;
-    startTimer();
+    resetTimer();
   });
 
   onDestroy(() => {
