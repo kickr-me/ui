@@ -6,6 +6,9 @@
   import GoalHistory from "../components/GoalHistory.svelte";
   import VolumeButton from "../components/VolumeButton.svelte";
   import { round, teams } from "../stores";
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
 
   const playerName = (playerName: string) =>
     `<span class="text-gray-500">${playerName}</span>`;
@@ -16,6 +19,8 @@
     $teams.white = tempTeam;
   };
 
+  const endSummary = () => dispatch("endSummary");
+
   // Swap teams once before the match so that they get swapped
   // again when the round starts and are in the correct order
   swapTeams();
@@ -25,7 +30,7 @@
 <div class="relative bg-gray-100 flex flex-1 flex-col">
   <div class="fixed flex justify-between px-4 items-center w-full z-20 h-12">
     <div>
-      <BackButton />
+      <BackButton on:stopGame={endSummary} />
     </div>
     <div />
     <div class="x-center">

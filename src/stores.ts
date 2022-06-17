@@ -34,3 +34,4 @@ export const teams = createTeam();
 export const spotify_status = writable("");
 export const spotify_track = writable({});
 export const winner = writable("");
+export const game_end = writable({});

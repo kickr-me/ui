@@ -70,7 +70,7 @@
   <button
     on:click={undoLastScore}
     class="button relative bg-gray-300 hover:bg-gray-400 font-semibold shadow-lg
-    text-lg text-gray-700 rounded-full"
+    text-lg text-gray-800 rounded-full"
   >
     <span class="text center-center">Undo</span>
     <span bind:this={ghostEl} class="ghost" />

@@ -13,6 +13,7 @@ import {
   spotify_status,
   spotify_track,
   winner,
+  game_end,
 } from "./stores";
 import { get } from "svelte/store";
 
@@ -132,6 +133,7 @@ function handleMessages(message: Paho.Message) {
       break;
     case CHANNELS.GAME_END:
       console.log("[game/end] Message:", message.payloadString);
+      game_end.set(JSON.parse(message.payloadString));
       winner.set(JSON.parse(message.payloadString).Winner);
       just_scored.set(false);
       // teams.reset();
