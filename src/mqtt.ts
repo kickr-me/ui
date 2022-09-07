@@ -3,7 +3,6 @@ import { Team } from "./helpers/config";
 import {
   game_status,
   goals,
-  just_scored,
   players,
   round,
   score_red,
@@ -14,6 +13,7 @@ import {
   spotify_track,
   winner,
   game_end,
+  just_scored,
 } from "./stores";
 import { get } from "svelte/store";
 
@@ -115,10 +115,6 @@ function handleMessages(message: Paho.Message) {
     case CHANNELS.GAME_STATUS:
       console.log("[game/status] Message:", message.payloadString);
       game_status.set(message.payloadString);
-      if (message.payloadString === "stopped") {
-        // teams.reset();
-        just_scored.set(false);
-      }
       break;
     case CHANNELS.GAME_START:
       console.log("[game/start] Message:", JSON.parse(message.payloadString));
@@ -128,15 +124,11 @@ function handleMessages(message: Paho.Message) {
       break;
     case CHANNELS.GAME_STOP:
       console.log("[game/stop] Message:", message.payloadString);
-      just_scored.set(false);
-      // teams.reset();
       break;
     case CHANNELS.GAME_END:
       console.log("[game/end] Message:", message.payloadString);
       game_end.set(JSON.parse(message.payloadString));
       winner.set(JSON.parse(message.payloadString).Winner);
-      just_scored.set(false);
-      // teams.reset();
       break;
     case CHANNELS.VOLUME:
       console.log("[sound/volume] Message:", message.payloadString);

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { just_scored, score_red, score_white } from "../stores";
+  import { score_red, score_white, just_scored } from "../stores";
   import { send } from "../mqtt";
   import { Team } from "../helpers/config";
   import Score from "./Score.svelte";
@@ -13,11 +13,15 @@
   }
 
   function hideUndo() {
-    just_scored.set(false);
+    $just_scored = false;
   }
 
-  $: $score_white, undoGoalButton?.resetTimer();
-  $: $score_red, undoGoalButton?.resetTimer();
+  const scoreChange = () => {
+    undoGoalButton?.resetTimer();
+  };
+
+  $: $score_white, scoreChange();
+  $: $score_red, scoreChange();
 </script>
 
 <div class="flex flex-1 relative z-10 items-center justify-around">

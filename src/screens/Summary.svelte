@@ -70,11 +70,7 @@
       <div class="grid grid-cols-2 gap-6">
         {#each winningTeam as player}
           <div class="flex flex-col">
-            <Player
-              {player}
-              on:click={() => console.log("click")}
-              team={"red"}
-            />
+            <Player {player} team={"red"} />
             <div class="flex justify-center">
               <span>{round(player.skill.mean)}</span> (<span
                 class="text-green-600">+{round(player.skill_diff)}</span
