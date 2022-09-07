@@ -4,10 +4,11 @@
   import type { IPlayer } from "../interfaces/player";
   import { send } from "../mqtt";
   import { teams, winner, players } from "../stores";
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onDestroy, onMount } from "svelte";
 
   const dispatch = createEventDispatcher();
 
+  let timeout: NodeJS.Timeout;
   let winningTeam: IPlayer[];
   let losingTeam: IPlayer[];
 
@@ -34,6 +35,7 @@
 
   const startGame = () => {
     const channel = "game/start";
+    clearTimeout(timeout);
     send(channel, JSON.stringify($teams), true);
   };
 
@@ -42,6 +44,21 @@
   };
 
   const endSummary = () => dispatch("endSummary");
+
+  const gameEndTimer = () => {
+    timeout = setTimeout(() => {
+      endSummary();
+      teams.reset();
+    }, 30000);
+  };
+
+  onMount(async () => {
+    gameEndTimer();
+  });
+
+  onDestroy(async () => {
+    clearTimeout(timeout);
+  });
 </script>
 
 <div
@@ -72,11 +89,7 @@
       <div class="grid grid-cols-2 gap-6">
         {#each losingTeam as player}
           <div class="flex flex-col">
-            <Player
-              {player}
-              on:click={() => console.log("click")}
-              team={"white"}
-            />
+            <Player {player} team={"white"} />
             <div class="flex justify-center">
               <span>{round(player.skill.mean)}</span> (<span
                 class="text-red-600">{round(player.skill_diff)}</span
