@@ -12,6 +12,7 @@
   const handleEndSummary = () => {
     const channel = "game/stop";
     send(channel, "");
+    $game_end = false;
     showSummary = false;
   };
 
