@@ -25,7 +25,7 @@
     (player) => player.id === $teams.white.defense.id
   );
 
-  if ($winner === "a") {
+  if ($winner === "b") {
     winningTeam = [$teams.red.attack, $teams.red.defense];
     losingTeam = [$teams.white.attack, $teams.white.defense];
   } else {
