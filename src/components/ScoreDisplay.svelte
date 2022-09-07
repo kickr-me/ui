@@ -10,9 +10,6 @@
   function score(e: CustomEvent, team: Team) {
     const channel = "score/";
     send(channel + e.detail, team);
-    if (undoGoalButton) {
-      undoGoalButton.resetTimer();
-    }
   }
 
   function hideUndo() {
